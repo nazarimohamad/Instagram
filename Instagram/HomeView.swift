@@ -14,7 +14,7 @@ class BaseCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setuoViews()
-        backgroundColor = .white
+//        backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,19 +32,19 @@ class StoryCell: BaseCell {
     let storyImage: UIImageView = {
         let storyImg = UIImageView()
         storyImg.backgroundColor = .red
-        storyImg.layer.cornerRadius = 22
+        storyImg.layer.cornerRadius = 37
         storyImg.translatesAutoresizingMaskIntoConstraints = false
        return storyImg
     }()
    
     override func setuoViews() {
        super.setuoViews()
-//        backgroundColor = .blue
+        backgroundColor = .blue
         addSubview(storyImage)
-        storyImage.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        storyImage.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        storyImage.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        storyImage.widthAnchor.constraint(equalToConstant: 75).isActive = true
+        storyImage.heightAnchor.constraint(equalToConstant: 75).isActive = true
         storyImage.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        storyImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 }
 
