@@ -38,7 +38,7 @@ class StoryCell: BaseCell {
        return storyImg
     }()
     
-    let name: UITextField = {
+    let storyName: UITextField = {
         let name = UITextField()
         name.text = "  your story"
         name.textColor = .black
@@ -65,18 +65,117 @@ class StoryCell: BaseCell {
         storyImage.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
         storyImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        addSubview(name)
-        name.topAnchor.constraint(equalTo: storyImage.bottomAnchor, constant: 4).isActive = true
-        name.leftAnchor.constraint(equalTo: storyImage.leftAnchor).isActive = true
-        name.rightAnchor.constraint(equalTo: storyImage.rightAnchor).isActive = true
-        name.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        addSubview(storyName)
+        storyName.topAnchor.constraint(equalTo: storyImage.bottomAnchor, constant: 4).isActive = true
+        storyName.leftAnchor.constraint(equalTo: storyImage.leftAnchor).isActive = true
+        storyName.rightAnchor.constraint(equalTo: storyImage.rightAnchor).isActive = true
+        storyName.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         addSubview(dividerLine)
-        dividerLine.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 8).isActive = true
+        dividerLine.topAnchor.constraint(equalTo: storyName.bottomAnchor, constant: 8).isActive = true
         dividerLine.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         dividerLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
     }
 }
 
+class CardCell: BaseCell {
+    
+    
+    let profileImage: UIImageView = {
+        let img = UIImageView()
+        img.backgroundColor = .purple
+        img.layer.cornerRadius = 21
+        img.contentMode = .scaleAspectFill
+        img.translatesAutoresizingMaskIntoConstraints = false
+        return img
+    }()
+    
+    let profileName: UITextField = {
+        let name = UITextField()
+        name.backgroundColor = .green
+        name.font = UIFont.boldSystemFont(ofSize: 16)
+        name.text = "Steave jobs"
+        name.translatesAutoresizingMaskIntoConstraints = false
+        return name
+    }()
+    
+    let dotTextField: UITextField = {
+        let dtext = UITextField()
+        dtext.text = "..."
+        dtext.backgroundColor = .red
+        dtext.translatesAutoresizingMaskIntoConstraints = false
+        return dtext
+    }()
+    
+    let postImage: UIImageView = {
+        let img = UIImageView()
+        img.backgroundColor = .lightGray
+        img.translatesAutoresizingMaskIntoConstraints = false
+        return img
+    }()
+    
+    
+    let likeButton: UIButton = {
+        let likeBtn = UIButton()
+        likeBtn.setTitle("likeButton", for: .normal)
+        likeBtn.translatesAutoresizingMaskIntoConstraints = false
+        return likeBtn
+    }()
+    
+    let commentButton: UIButton = {
+        let commentBtn = UIButton()
+        commentBtn.setTitle("commentButton", for: .normal)
+        commentBtn.translatesAutoresizingMaskIntoConstraints = false
+        return commentBtn
+    }()
+    
+    let shareButton: UIButton = {
+        let shareBtn = UIButton()
+        shareBtn.setTitle("shareButton", for: .normal)
+        shareBtn.translatesAutoresizingMaskIntoConstraints = false
+        return shareBtn
+    }()
+    
+    override func setuoViews() {
+        super.setuoViews()
+        
+        addSubview(profileImage)
+        profileImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 12).isActive = true
+        profileImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
+        profileImage.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        profileImage.heightAnchor.constraint(equalToConstant: 42).isActive = true
+        
+        addSubview(profileName)
+        profileName.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+        profileName.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 14).isActive = true
+        profileName.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
+        
+        addSubview(dotTextField)
+        dotTextField.topAnchor.constraint(equalTo: profileName.topAnchor).isActive = true
+        dotTextField.rightAnchor.constraint(equalTo: rightAnchor, constant: -4).isActive = true
+        dotTextField.widthAnchor.constraint(equalToConstant: 12).isActive = true
+        
+        addSubview(postImage)
+        postImage.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8).isActive = true
+        postImage.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        postImage.heightAnchor.constraint(equalToConstant: 362).isActive = true
+        
+        addSubview(likeButton)
+        likeButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 8).isActive = true
+        likeButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
+        likeButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        
+        addSubview(commentButton)
+        commentButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 8).isActive = true
+        commentButton.leftAnchor.constraint(equalTo: likeButton.rightAnchor, constant: 4).isActive = true
+        commentButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        
+        addSubview(shareButton)
+        shareButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 8).isActive = true
+        shareButton.leftAnchor.constraint(equalTo: commentButton.rightAnchor, constant: 4).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        
+    }
+}
 
 

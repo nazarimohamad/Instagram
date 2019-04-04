@@ -25,7 +25,8 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
     let cardCell = "cardCell"
     lazy var collectionViewTwo: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 230, width: 375, height: 250), collectionViewLayout: layout)
+        layout.minimumLineSpacing = 0
+        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 195, width: 375, height: 471), collectionViewLayout: layout)
         collectionViewTwo.backgroundColor = .white
         return collectionViewTwo
     }()
@@ -45,7 +46,7 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
         collectionViewTwo.dataSource = self
         
         collectionViewOne.register(StoryCell.self, forCellWithReuseIdentifier: storyCell)
-        collectionViewTwo.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cardCell)
+        collectionViewTwo.register(CardCell.self, forCellWithReuseIdentifier: cardCell)
         
         
         
@@ -95,7 +96,8 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
         if collectionView == collectionViewOne {
             return CGSize(width: 100, height: 125)
         } else {
-            let height = (view.frame.width * 9/16) + 40
+            let height = (view.frame.height) - 195
+            print(height)
             return CGSize(width: view.frame.width, height: height)
         }
     }
