@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		124A9BA2225621C100CB1A84 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA1225621C100CB1A84 /* CustomTabBar.swift */; };
 		124A9BA422562A3C00CB1A84 /* viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA322562A3C00CB1A84 /* viewController.swift */; };
+		124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA5225698E900CB1A84 /* ChatViewController.swift */; };
 		129682132254A03800A9D098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682122254A03800A9D098 /* AppDelegate.swift */; };
 		129682152254A03800A9D098 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682142254A03800A9D098 /* HomeController.swift */; };
 		129682182254A03800A9D098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 129682162254A03800A9D098 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		124A9BA1225621C100CB1A84 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		124A9BA322562A3C00CB1A84 /* viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewController.swift; sourceTree = "<group>"; };
+		124A9BA5225698E900CB1A84 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		1296820F2254A03800A9D098 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		129682122254A03800A9D098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		129682142254A03800A9D098 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				129682142254A03800A9D098 /* HomeController.swift */,
 				124A9BA1225621C100CB1A84 /* CustomTabBar.swift */,
 				124A9BA322562A3C00CB1A84 /* viewController.swift */,
+				124A9BA5225698E900CB1A84 /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				124A9BA422562A3C00CB1A84 /* viewController.swift in Sources */,
 				129682152254A03800A9D098 /* HomeController.swift in Sources */,
 				124A9BA2225621C100CB1A84 /* CustomTabBar.swift in Sources */,
+				124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */,
 				129682282254AF9700A9D098 /* HomeView.swift in Sources */,
 				1296821B2254A03800A9D098 /* Instagram.xcdatamodeld in Sources */,
 				129682132254A03800A9D098 /* AppDelegate.swift in Sources */,

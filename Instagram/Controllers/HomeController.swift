@@ -10,7 +10,6 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    
     let storyCell = "storyCell"
     lazy var collectionViewOne: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -21,7 +20,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionViewOne.backgroundColor = .white
         return collectionViewOne
     }()
-    
+
     let cardCell = "cardCell"
     lazy var collectionViewTwo: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -30,34 +29,39 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionViewTwo.backgroundColor = .white
         return collectionViewTwo
     }()
+//
     
+    func setupNavbar() {
+        
+        self.tabBarController?.navigationItem.title = "home"
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "message", style: .plain, target: self, action: #selector(showChatScreen))
+    }
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
+        setupNavbar()
         
         collectionViewOne.delegate = self
         collectionViewOne.dataSource = self
 
         collectionViewTwo.delegate = self
         collectionViewTwo.dataSource = self
-        
+
         collectionViewOne.register(StoryCell.self, forCellWithReuseIdentifier: storyCell)
         collectionViewTwo.register(CardCell.self, forCellWithReuseIdentifier: cardCell)
 
 
         collectionView.addSubview(collectionViewOne)
         collectionView.addSubview(collectionViewTwo)
-//        handleHorizentalScroll()
     }
 
-//    func handleHorizentalScroll() {
-//        if let flowLayout = collectionViewOne.collectionViewLayout as? UICollectionViewFlowLayout {
-//            flowLayout.scrollDirection = .horizontal
-////            flowLayout.minimumLineSpacing = 0
-//        }
-//    }
+    @objc func showChatScreen() {
+        let layout = UICollectionViewFlowLayout()
+        let chatViewController = ChatViewController.init(collectionViewLayout: layout)
+        self.navigationController?.pushViewController(chatViewController, animated: true)
+    }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 

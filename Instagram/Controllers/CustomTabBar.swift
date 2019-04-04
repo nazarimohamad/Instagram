@@ -15,16 +15,17 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
-        let homeController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        let hController = HomeController(collectionViewLayout: layout)
+        let homeController = UINavigationController.init(rootViewController: hController)
         homeController.tabBarItem.title = "Home"
         homeController.tabBarItem.image = UIImage(named: "home")
         
         
         let navController = UINavigationController(rootViewController: viewController())
         navController.tabBarItem.title = "search"
-        navController.tabBarItem.image = UIImage(named: "search")
+        navController.tabBarItem.image = UIImage(named: "people")
         
-        viewControllers = [homeController, navController, createDummyNavControllerWithTitle(title: "Add", imageName: "add"), createDummyNavControllerWithTitle(title: "Like", imageName: "like"), createDummyNavControllerWithTitle(title: "Profile", imageName: "profile")]
+        viewControllers = [homeController, navController, createDummyNavControllerWithTitle(title: "Add", imageName: "home"), createDummyNavControllerWithTitle(title: "Like", imageName: "people"), createDummyNavControllerWithTitle(title: "Profile", imageName: "setting")]
     }
     
     private func createDummyNavControllerWithTitle(title: String, imageName: String) -> UINavigationController {
