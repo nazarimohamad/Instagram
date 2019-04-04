@@ -62,7 +62,7 @@ class StoryCell: BaseCell {
         addSubview(storyImage)
         storyImage.widthAnchor.constraint(equalToConstant: 75).isActive = true
         storyImage.heightAnchor.constraint(equalToConstant: 75).isActive = true
-        storyImage.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+        storyImage.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
         storyImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         addSubview(storyName)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     
     let storyCell = "storyCell"
@@ -16,7 +16,7 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
-        let collectionViewOne = UICollectionView(frame: CGRect(x: 0, y: 70, width: 375, height: 125), collectionViewLayout: layout)
+        let collectionViewOne = UICollectionView(frame: CGRect(x: 0, y: -35, width: 375, height: 115), collectionViewLayout: layout)
         collectionViewOne.showsHorizontalScrollIndicator = false
         collectionViewOne.backgroundColor = .white
         return collectionViewOne
@@ -26,32 +26,29 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
     lazy var collectionViewTwo: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
-        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 195, width: 375, height: 471), collectionViewLayout: layout)
+        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 80, width: 375, height: 471), collectionViewLayout: layout)
         collectionViewTwo.backgroundColor = .white
         return collectionViewTwo
     }()
     
-    
-    var myArray = ["1", "2", "3", "4"]
-    var myArray2 = ["3", "4"]
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        collectionView.backgroundColor = .white
         
         collectionViewOne.delegate = self
         collectionViewOne.dataSource = self
-        
+
         collectionViewTwo.delegate = self
         collectionViewTwo.dataSource = self
         
         collectionViewOne.register(StoryCell.self, forCellWithReuseIdentifier: storyCell)
         collectionViewTwo.register(CardCell.self, forCellWithReuseIdentifier: cardCell)
-        
-        
-        
-        view.addSubview(collectionViewOne)
-        view.addSubview(collectionViewTwo)
+
+
+        collectionView.addSubview(collectionViewOne)
+        collectionView.addSubview(collectionViewTwo)
 //        handleHorizentalScroll()
     }
 
@@ -62,42 +59,39 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
 //        }
 //    }
 
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         if collectionView == self.collectionViewOne {
             return 10
         } else {
-            return myArray2.count
+            return 4
         }
-        
+
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         if collectionView == self.collectionViewOne {
-            let sCell = collectionViewOne.dequeueReusableCell(withReuseIdentifier: "storyCell", for: indexPath as IndexPath)
+            let sCell = collectionViewOne.dequeueReusableCell(withReuseIdentifier: storyCell, for: indexPath as IndexPath)
             sCell.backgroundColor = UIColor.white
 
             return sCell
 
         } else {
-
-            let cCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cardCell", for: indexPath as IndexPath)
+            let cCell = collectionViewTwo.dequeueReusableCell(withReuseIdentifier: cardCell, for: indexPath as IndexPath)
 
             cCell.backgroundColor = UIColor.blue
 
             return cCell
         }
-    
+
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == collectionViewOne {
-            return CGSize(width: 100, height: 125)
+            return CGSize(width: 100, height: 115)
         } else {
             let height = (view.frame.height) - 195
-            print(height)
             return CGSize(width: view.frame.width, height: height)
         }
     }
