@@ -8,27 +8,30 @@
 
 import UIKit
 
-class HomeController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class HomeController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     
-    let MyCell = "MyCell"
+    let storyCell = "storyCell"
     lazy var collectionViewOne: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let collectionViewOne = UICollectionView(frame: CGRect(x: 0, y: 40, width: 300, height: 100), collectionViewLayout: layout)
-//        collectionViewOne.backgroundColor = .white
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let collectionViewOne = UICollectionView(frame: CGRect(x: 0, y: 70, width: 375, height: 125), collectionViewLayout: layout)
+        collectionViewOne.showsHorizontalScrollIndicator = false
+        collectionViewOne.backgroundColor = .white
         return collectionViewOne
     }()
     
-    let MyCell2 = "MyCell2"
+    let cardCell = "cardCell"
     lazy var collectionViewTwo: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 390, width: 200, height: 100), collectionViewLayout: layout)
-//        collectionViewTwo.backgroundColor = .white
+        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 230, width: 375, height: 250), collectionViewLayout: layout)
+        collectionViewTwo.backgroundColor = .white
         return collectionViewTwo
     }()
     
     
-    var myArray = ["1", "2"]
+    var myArray = ["1", "2", "3", "4"]
     var myArray2 = ["3", "4"]
     
     override func viewDidLoad() {
@@ -41,26 +44,28 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
         collectionViewTwo.delegate = self
         collectionViewTwo.dataSource = self
         
-        collectionViewOne.register(UICollectionViewCell.self, forCellWithReuseIdentifier: MyCell)
-        collectionViewTwo.register(UICollectionViewCell.self, forCellWithReuseIdentifier: MyCell2)
+        collectionViewOne.register(StoryCell.self, forCellWithReuseIdentifier: storyCell)
+        collectionViewTwo.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cardCell)
+        
+        
         
         view.addSubview(collectionViewOne)
         view.addSubview(collectionViewTwo)
 //        handleHorizentalScroll()
     }
-//
+
 //    func handleHorizentalScroll() {
-//        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+//        if let flowLayout = collectionViewOne.collectionViewLayout as? UICollectionViewFlowLayout {
 //            flowLayout.scrollDirection = .horizontal
-//            flowLayout.minimumLineSpacing = 0
+////            flowLayout.minimumLineSpacing = 0
 //        }
 //    }
-//
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == self.collectionViewOne {
-            return myArray.count
+            return 10
         } else {
             return myArray2.count
         }
@@ -70,22 +75,31 @@ class HomeController: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == self.collectionViewOne {
-            let myCell = collectionViewOne.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath as IndexPath)
+            let sCell = collectionViewOne.dequeueReusableCell(withReuseIdentifier: "storyCell", for: indexPath as IndexPath)
+            sCell.backgroundColor = UIColor.white
 
-            myCell.backgroundColor = UIColor.red
-
-            return myCell
+            return sCell
 
         } else {
 
-            let myCell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell2", for: indexPath as IndexPath)
+            let cCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cardCell", for: indexPath as IndexPath)
 
-            myCell2.backgroundColor = UIColor.blue
+            cCell.backgroundColor = UIColor.blue
 
-            return myCell2
+            return cCell
         }
     
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == collectionViewOne {
+            return CGSize(width: 100, height: 125)
+        } else {
+            let height = (view.frame.width * 9/16) + 40
+            return CGSize(width: view.frame.width, height: height)
+        }
+    }
+    
 }
 
 
