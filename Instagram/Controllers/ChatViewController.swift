@@ -8,26 +8,16 @@
 
 import UIKit
 
-class ChatViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class ChatViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     
     let cellId = "cellId"
     let headerId = "headerId"
     
-    lazy var searchBar: UISearchBar = {
-        let search = UISearchBar()
-        search.barStyle = .default
-        search.placeholder = "search name"
-        search.barTintColor = UIColor(white: 0.7, alpha: 0.4)
-        search.delegate = self
-        search.sizeToFit()
-        return search
-    }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = .green
+        collectionView.backgroundColor = .white
         tabBarController?.tabBar.isHidden = true
         
         collectionView.register(ChatListView.self, forCellWithReuseIdentifier: cellId)
@@ -40,14 +30,7 @@ class ChatViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
-        header.addSubview(searchBar)
-        
-        header.translatesAutoresizingMaskIntoConstraints = false
-        header.topAnchor.constraint(equalTo: header.topAnchor).isActive = true
-        header.leftAnchor.constraint(equalTo: header.leftAnchor).isActive = true
-        header.bottomAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
-        header.rightAnchor.constraint(equalTo: header.rightAnchor).isActive = true
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)  
         return header
     }
     
