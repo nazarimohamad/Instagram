@@ -17,6 +17,7 @@
 		1296821D2254A03D00A9D098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1296821C2254A03D00A9D098 /* Assets.xcassets */; };
 		129682202254A03D00A9D098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1296821E2254A03D00A9D098 /* LaunchScreen.storyboard */; };
 		129682282254AF9700A9D098 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682272254AF9700A9D098 /* HomeView.swift */; };
+		12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ADDB7522573C0C00F95F20 /* ChatListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		1296821F2254A03D00A9D098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		129682212254A03D00A9D098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		129682272254AF9700A9D098 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		12ADDB7522573C0C00F95F20 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				129682272254AF9700A9D098 /* HomeView.swift */,
+				12ADDB7522573C0C00F95F20 /* ChatListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				129682152254A03800A9D098 /* HomeController.swift in Sources */,
 				124A9BA2225621C100CB1A84 /* CustomTabBar.swift in Sources */,
 				124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */,
+				12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */,
 				129682282254AF9700A9D098 /* HomeView.swift in Sources */,
 				1296821B2254A03800A9D098 /* Instagram.xcdatamodeld in Sources */,
 				129682132254A03800A9D098 /* AppDelegate.swift in Sources */,

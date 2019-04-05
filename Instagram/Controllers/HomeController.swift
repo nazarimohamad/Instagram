@@ -15,7 +15,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
-        let collectionViewOne = UICollectionView(frame: CGRect(x: 0, y: -35, width: 375, height: 115), collectionViewLayout: layout)
+        let width = collectionView.frame.width
+        let collectionViewOne = UICollectionView(frame: CGRect(x: 0, y: -35, width: width, height: 115), collectionViewLayout: layout)
         collectionViewOne.showsHorizontalScrollIndicator = false
         collectionViewOne.backgroundColor = .white
         return collectionViewOne
@@ -25,7 +26,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     lazy var collectionViewTwo: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
-        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 80, width: 375, height: 471), collectionViewLayout: layout)
+        let width = collectionView.frame.width
+        let height = view.frame.height - 115
+        let collectionViewTwo = UICollectionView(frame: CGRect(x: 0, y: 80, width: width, height: height), collectionViewLayout: layout)
         collectionViewTwo.backgroundColor = .white
         return collectionViewTwo
     }()
@@ -60,7 +63,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     @objc func showChatScreen() {
         let layout = UICollectionViewFlowLayout()
         let chatViewController = ChatViewController.init(collectionViewLayout: layout)
-        self.navigationController?.pushViewController(chatViewController, animated: true)
+        self.tabBarController?.navigationController?.pushViewController(chatViewController, animated: true)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
