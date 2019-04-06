@@ -10,6 +10,34 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    
+    var posts: [Post] = {
+        
+        let blankProfile = Profile()
+        blankProfile.profileImage = "steve"
+        blankProfile.profileName = "steve jobs"
+        
+        let blankProfile2 = Profile()
+        blankProfile2.profileImage = "elon"
+        blankProfile2.profileName = "elon musk"
+        
+        let blankPost = Post()
+        blankPost.numberOfLikes = 142
+        blankPost.postImage = "mark"
+        blankPost.profile = blankProfile
+        
+        let blankPost2 = Post()
+        blankPost2.numberOfLikes = 142
+        blankPost2.postImage = "steve"
+        blankPost2.profile = blankProfile2
+        
+        return [blankPost, blankPost2]
+        
+    }()
+    
+    
+    
+    
     let storyCell = "storyCell"
     lazy var collectionViewOne: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -71,8 +99,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         if collectionView == self.collectionViewOne {
             return 10
+        } else if collectionView == self.collectionViewTwo {
+            return posts.count
         } else {
-            return 4
+            return 0
         }
 
     }
@@ -84,10 +114,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
             return sCell
 
-        } else {
-            let cCell = collectionViewTwo.dequeueReusableCell(withReuseIdentifier: cardCell, for: indexPath as IndexPath)
-
+        } else if collectionView == self.collectionViewTwo {
+            let cCell = collectionViewTwo.dequeueReusableCell(withReuseIdentifier: cardCell, for: indexPath as IndexPath) as! CardCell
+            cCell.post = posts[indexPath.row]
             return cCell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
+            return cell
         }
 
     }
@@ -96,7 +129,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         if collectionView == collectionViewOne {
             return CGSize(width: 100, height: 115)
         } else {
-            let height = (view.frame.height) - 195
+            let height = (view.frame.height) - 175
             return CGSize(width: view.frame.width, height: height)
         }
     }
