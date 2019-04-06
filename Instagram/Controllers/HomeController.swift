@@ -44,6 +44,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
+        
         setupNavbar()
         
         collectionViewOne.delegate = self
@@ -80,14 +81,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         if collectionView == self.collectionViewOne {
             let sCell = collectionViewOne.dequeueReusableCell(withReuseIdentifier: storyCell, for: indexPath as IndexPath)
-            sCell.backgroundColor = UIColor.white
 
             return sCell
 
         } else {
             let cCell = collectionViewTwo.dequeueReusableCell(withReuseIdentifier: cardCell, for: indexPath as IndexPath)
-
-            cCell.backgroundColor = UIColor.blue
 
             return cCell
         }

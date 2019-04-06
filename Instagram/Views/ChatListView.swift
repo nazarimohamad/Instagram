@@ -10,47 +10,39 @@ import UIKit
 
 
 class ChatListView: BaseCell {
-    
-//    let lastMessage: UITextView = {
-//        let message = UITextView()
-//        message.backgroundColor = .red
-//        message.font = UIFont.systemFont(ofSize: 12)
-//        message.tintColor = .lightGray
-//        message.text = "Steave jobs"
-//        message.translatesAutoresizingMaskIntoConstraints = false
-//        return message
-//    }()
-//    
-//    let dividerLine: UIView = {
-//        let line = UIView()
-//        line.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
-//        line.translatesAutoresizingMaskIntoConstraints = false
-//        return line
-//    }()
+
     let profileImage: UIImageView = {
         let img = UIImageView()
-        img.backgroundColor = .purple
         img.layer.cornerRadius = 25
+        img.image = UIImage(named: "steve")
         img.contentMode = .scaleAspectFill
+        img.layer.masksToBounds = true
         img.translatesAutoresizingMaskIntoConstraints = false
         return img
     }()
     
-    let profileName: UITextField = {
-        let name = UITextField()
-        name.backgroundColor = .blue
+    let profileName: UILabel = {
+        let name = UILabel()
         name.font = UIFont.systemFont(ofSize: 16)
         name.text = "Steave jobs"
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
     
-    let lastMessage: UITextField = {
-        let message = UITextField()
-        message.backgroundColor = .red
+    let timeLable: UILabel = {
+        let time = UILabel()
+        time.text = "7:35 pm"
+        time.font = UIFont.systemFont(ofSize: 12)
+        time.textColor = UIColor(white: 0.3, alpha: 0.5)
+        time.translatesAutoresizingMaskIntoConstraints = false
+        return time
+    }()
+    
+    let lastMessage: UILabel = {
+        let message = UILabel()
         message.font = UIFont.systemFont(ofSize: 12)
         message.textColor = UIColor(white: 0.3, alpha: 0.5)
-        message.text = "like my photos"
+        message.text = "like my photos and share with your friends"
         message.translatesAutoresizingMaskIntoConstraints = false
         return message
     }()
@@ -62,8 +54,8 @@ class ChatListView: BaseCell {
         return line
     }()
     
-    override func setuoViews() {
-        super.setuoViews()
+    override func setupViews() {
+        super.setupViews()
  
 
 
@@ -82,6 +74,10 @@ class ChatListView: BaseCell {
         lastMessage.topAnchor.constraint(equalTo: profileName.bottomAnchor, constant: 4).isActive = true
         lastMessage.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 10).isActive = true
         lastMessage.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -100).isActive = true
+        
+        addSubview(timeLable)
+        timeLable.topAnchor.constraint(equalTo: profileName.bottomAnchor, constant: 4).isActive = true
+        timeLable.leftAnchor.constraint(equalTo: lastMessage.rightAnchor, constant: 8).isActive = true
         
         addSubview(dividerLine)
         dividerLine.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 4).isActive = true
@@ -107,8 +103,8 @@ class SearchBar: BaseCell, UISearchBarDelegate {
         return search
     }()
     
-    override func setuoViews() {
-        super.setuoViews()
+    override func setupViews() {
+        super.setupViews()
         
        addSubview(searchBar)
         
