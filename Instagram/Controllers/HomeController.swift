@@ -10,7 +10,7 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var posts: [Post]?
+      var posts: [Post]?
 //    var posts: [Post] = {
 //
 //        let blankProfile = Profile()
@@ -100,10 +100,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             } catch let jsonError{
                 print("error in json\(jsonError)")
             }
-        }.resume()
+            }.resume()
         
     }
-  
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

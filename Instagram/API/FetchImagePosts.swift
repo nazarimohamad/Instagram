@@ -8,10 +8,8 @@
 
 import UIKit
 
+
 class FetchImagePosts: NSObject {
-    
-    func fetchPosts() {
-        
-    }
+
     
 }

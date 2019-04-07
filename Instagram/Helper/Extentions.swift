@@ -9,9 +9,16 @@
 import UIKit
 
 let imageCache = NSCache<AnyObject, AnyObject>()
-extension UIImageView {
+
+class CustomImageView: UIImageView {
+    
+    var imageUrlString: String?
     
     func loadImageUsing(urlString: String) {
+        
+        imageUrlString = urlString
+        
+        let url = NSURL(string: urlString)
         
         image = nil
         
@@ -19,17 +26,21 @@ extension UIImageView {
             self.image = imageFromCache
             return
         }
-        
-        let url = NSURL(string: urlString)
         URLSession.shared.dataTask(with: url! as URL) { (data, response, error) in
             
             if error != nil {
                 print("there is error to get post photo from url \(String(describing: error))")
             }
             DispatchQueue.main.async {
+                
                 let imageToCache = UIImage(data: data!)
+                
+                if self.imageUrlString == urlString {
+                    self.image = imageToCache
+                }
+                
                 imageCache.setObject(imageToCache!, forKey: urlString as AnyObject)
-                self.image = imageToCache
+                
             }
         }.resume()
     }

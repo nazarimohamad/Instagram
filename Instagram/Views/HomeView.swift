@@ -112,8 +112,8 @@ class CardCell: BaseCell {
     }
     
     
-    let profileImage: UIImageView = {
-        let img = UIImageView()
+    let profileImage: CustomImageView = {
+        let img = CustomImageView()
         img.layer.cornerRadius = 25
         img.image = UIImage(named: "mark")
         img.contentMode = .scaleAspectFill
@@ -138,8 +138,8 @@ class CardCell: BaseCell {
         return dBtn
     }()
     
-    let postImage: UIImageView = {
-        let img = UIImageView()
+    let postImage: CustomImageView = {
+        let img = CustomImageView()
         img.image = UIImage(named: "elon")
         img.contentMode = .scaleAspectFill
         img.layer.masksToBounds = true
