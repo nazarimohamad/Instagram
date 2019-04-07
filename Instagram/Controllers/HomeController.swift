@@ -75,7 +75,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                 print(json)
                 
                 self.posts = [Post]()
                 
