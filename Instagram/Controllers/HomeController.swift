@@ -10,33 +10,30 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    
-    var posts: [Post] = {
-        
-        let blankProfile = Profile()
-        blankProfile.profileImage = "steve"
-        blankProfile.profileName = "steve jobs"
-        
-        let blankProfile2 = Profile()
-        blankProfile2.profileImage = "elon"
-        blankProfile2.profileName = "elon musk"
-        
-        let blankPost = Post()
-        blankPost.numberOfLikes = 142
-        blankPost.postImage = "mark"
-        blankPost.profile = blankProfile
-        
-        let blankPost2 = Post()
-        blankPost2.numberOfLikes = 142
-        blankPost2.postImage = "steve"
-        blankPost2.profile = blankProfile2
-        
-        return [blankPost, blankPost2]
-        
-    }()
-    
-    
-    
+    var posts: [Post]?
+//    var posts: [Post] = {
+//
+//        let blankProfile = Profile()
+//        blankProfile.profileImage = "steve"
+//        blankProfile.profileName = "steve jobs"
+//
+//        let blankProfile2 = Profile()
+//        blankProfile2.profileImage = "elon"
+//        blankProfile2.profileName = "elon musk"
+//
+//        let blankPost = Post()
+//        blankPost.numberOfLikes = 142
+//        blankPost.postImage = "mark"
+//        blankPost.profile = blankProfile
+//
+//        let blankPost2 = Post()
+//        blankPost2.numberOfLikes = 12889232198823
+//        blankPost2.postImage = "steve"
+//        blankPost2.profile = blankProfile2
+//
+//        return [blankPost, blankPost2]
+//
+//    }()
     
     let storyCell = "storyCell"
     lazy var collectionViewOne: UICollectionView = {
@@ -67,11 +64,54 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         self.tabBarController?.navigationItem.title = "home"
         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "message", style: .plain, target: self, action: #selector(showChatScreen))
     }
+    
+    
+    func fetchPosts() {
+        let url = NSURL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
+        URLSession.shared.dataTask(with: url! as URL) { (data, response, error) in
+            if error != nil {
+                print("there is error to fetch data \(String(describing: error))")
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                 print(json)
+                
+                self.posts = [Post]()
+                
+                for dictionary in json as! [[String: AnyObject]] {
+                    
+                    let post = Post()
+                    post.numberOfLikes = dictionary["number_of_views"] as? NSNumber
+                    post.postImage = dictionary["thumbnail_image_name"] as? String
+                    
+                    let profileDictionary = dictionary["channel"] as! [String: AnyObject]
+                    let profile = Profile()
+                    profile.profileName = profileDictionary["name"] as? String
+                    profile.profileImage = profileDictionary["profile_image_name"] as? String
+                    
+                    post.profile = profile
+                    self.posts?.append(post)
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionViewTwo.reloadData()
+                }
+                
+            } catch let jsonError{
+                print("error in json\(jsonError)")
+            }
+        }.resume()
+        
+    }
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
+        
+        fetchPosts()
+//        FetchImagePosts().fetchPosts()
         
         setupNavbar()
         
@@ -100,7 +140,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         if collectionView == self.collectionViewOne {
             return 10
         } else if collectionView == self.collectionViewTwo {
-            return posts.count
+            return posts?.count ?? 0
         } else {
             return 0
         }
@@ -116,7 +156,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         } else if collectionView == self.collectionViewTwo {
             let cCell = collectionViewTwo.dequeueReusableCell(withReuseIdentifier: cardCell, for: indexPath as IndexPath) as! CardCell
-            cCell.post = posts[indexPath.row]
+            cCell.post = posts?[indexPath.row]
             return cCell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)

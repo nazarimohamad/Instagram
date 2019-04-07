@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1247C7172259D536008CC881 /* FetchImagePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C7162259D536008CC881 /* FetchImagePosts.swift */; };
+		1247C71A225A0A69008CC881 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C719225A0A69008CC881 /* Extentions.swift */; };
 		124A9BA2225621C100CB1A84 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA1225621C100CB1A84 /* CustomTabBar.swift */; };
 		124A9BA422562A3C00CB1A84 /* viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA322562A3C00CB1A84 /* viewController.swift */; };
 		124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA5225698E900CB1A84 /* ChatViewController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1247C7162259D536008CC881 /* FetchImagePosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImagePosts.swift; sourceTree = "<group>"; };
+		1247C719225A0A69008CC881 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		124A9BA1225621C100CB1A84 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		124A9BA322562A3C00CB1A84 /* viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewController.swift; sourceTree = "<group>"; };
 		124A9BA5225698E900CB1A84 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +53,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1247C7152259D508008CC881 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				1247C7162259D536008CC881 /* FetchImagePosts.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		1247C718225A0A4C008CC881 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				1247C719225A0A69008CC881 /* Extentions.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		124A9B9F2256217500CB1A84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,9 +109,11 @@
 			isa = PBXGroup;
 			children = (
 				129682122254A03800A9D098 /* AppDelegate.swift */,
+				1247C7152259D508008CC881 /* API */,
 				12C6EF7F2258A390005C2E1D /* Model */,
 				124A9B9F2256217500CB1A84 /* Views */,
 				124A9BA02256218400CB1A84 /* Controllers */,
+				1247C718225A0A4C008CC881 /* Helper */,
 				129682162254A03800A9D098 /* Main.storyboard */,
 				1296821C2254A03D00A9D098 /* Assets.xcassets */,
 				1296821E2254A03D00A9D098 /* LaunchScreen.storyboard */,
@@ -182,6 +204,8 @@
 			files = (
 				124A9BA422562A3C00CB1A84 /* viewController.swift in Sources */,
 				12C6EF812258A3E1005C2E1D /* PostModel.swift in Sources */,
+				1247C7172259D536008CC881 /* FetchImagePosts.swift in Sources */,
+				1247C71A225A0A69008CC881 /* Extentions.swift in Sources */,
 				129682152254A03800A9D098 /* HomeController.swift in Sources */,
 				124A9BA2225621C100CB1A84 /* CustomTabBar.swift in Sources */,
 				124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */,

@@ -83,13 +83,31 @@ class CardCell: BaseCell {
     
     
     var post: Post? {
+        
         didSet {
+            
+            setupImagePost()
+            setupProfileImage()
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            numberOfLike.text = "\(formatter.string(from: (post?.numberOfLikes)!) ?? "21") likes"
+           
+            profileName.text =  post?.profile?.profileName
          
-            postImage.image = UIImage(named: (post?.postImage)!)
-            profileImage.image = UIImage(named: (post?.profile?.profileImage)!)
-            profileName.text = post?.profile?.profileName
-            
-            
+        }
+    }
+    
+    func setupProfileImage() {
+        if let profileImageUrl = post?.profile?.profileImage {
+            profileImage.loadImageUsing(urlString: profileImageUrl)
+        }
+      
+    }
+    
+    func setupImagePost() {
+        if let postImageUrl = post?.postImage {
+           postImage.loadImageUsing(urlString: postImageUrl)
         }
     }
     
@@ -129,16 +147,6 @@ class CardCell: BaseCell {
         return img
     }()
     
-    
-    let numberOfLike: UILabel = {
-        let number = UILabel()
-        number.font = UIFont.boldSystemFont(ofSize: 12)
-        number.text = "267"
-        number.translatesAutoresizingMaskIntoConstraints = false
-        return number
-    }()
-    
-    
     let likeButton: UIButton = {
         let likeBtn = UIButton()
         likeBtn.setTitle("likeButton", for: .normal)
@@ -163,6 +171,14 @@ class CardCell: BaseCell {
         return shareBtn
     }()
     
+    let numberOfLike: UILabel = {
+        let number = UILabel()
+        number.font = UIFont.boldSystemFont(ofSize: 12)
+        number.text = "267"
+        number.translatesAutoresizingMaskIntoConstraints = false
+        return number
+    }()
+    
     let dividerLine: UIView = {
         let line = UIView()
         line.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
@@ -180,7 +196,7 @@ class CardCell: BaseCell {
         profileImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         addSubview(profileName)
-        profileName.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+        profileName.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
         profileName.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 14).isActive = true
         profileName.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
         
@@ -194,27 +210,27 @@ class CardCell: BaseCell {
         postImage.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         postImage.heightAnchor.constraint(equalToConstant: 362).isActive = true
         
-        addSubview(numberOfLike)
-        numberOfLike.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 4).isActive = true
-        numberOfLike.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
-        
         addSubview(likeButton)
-        likeButton.topAnchor.constraint(equalTo: numberOfLike.bottomAnchor, constant: 4).isActive = true
+        likeButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 4).isActive = true
         likeButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
         likeButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
         
         addSubview(commentButton)
-        commentButton.topAnchor.constraint(equalTo: numberOfLike.bottomAnchor, constant: 4).isActive = true
+        commentButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 4).isActive = true
         commentButton.leftAnchor.constraint(equalTo: likeButton.rightAnchor, constant: 4).isActive = true
         commentButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
         
         addSubview(shareButton)
-        shareButton.topAnchor.constraint(equalTo: numberOfLike.bottomAnchor, constant: 4).isActive = true
+        shareButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 4).isActive = true
         shareButton.leftAnchor.constraint(equalTo: commentButton.rightAnchor, constant: 4).isActive = true
         shareButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
         
+        addSubview(numberOfLike)
+        numberOfLike.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 4).isActive = true
+        numberOfLike.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
+        
         addSubview(dividerLine)
-        dividerLine.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 8).isActive = true
+        dividerLine.topAnchor.constraint(equalTo: numberOfLike.bottomAnchor, constant: 8).isActive = true
         dividerLine.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         dividerLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         
