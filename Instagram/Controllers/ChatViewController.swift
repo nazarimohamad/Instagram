@@ -17,6 +17,7 @@ class ChatViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Message"
         collectionView.backgroundColor = .white
         tabBarController?.tabBar.isHidden = true
         
@@ -50,5 +51,10 @@ class ChatViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+      navigationController?.pushViewController(MessageViewController(), animated: true)
     }
 }
