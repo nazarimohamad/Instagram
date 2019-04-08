@@ -25,7 +25,7 @@ class CustomTabBarController: UITabBarController {
         navController.tabBarItem.title = "search"
         navController.tabBarItem.image = UIImage(named: "people")
         
-        viewControllers = [homeController, navController, createDummyNavControllerWithTitle(title: "Add", imageName: "home"), createDummyNavControllerWithTitle(title: "Like", imageName: "people"), createDummyNavControllerWithTitle(title: "Profile", imageName: "setting")]
+        viewControllers = [homeController, navController, createDummyNavControllerWithTitle(title: "Add", imageName: "home" ), createDummyNavControllerWithTitle(title: "Like", imageName: "people"), createDummyNavControllerWithTitle(title: "Profile", imageName: "setting")]
     }
     
     private func createDummyNavControllerWithTitle(title: String, imageName: String) -> UINavigationController {

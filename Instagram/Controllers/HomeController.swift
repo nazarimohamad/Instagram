@@ -11,29 +11,6 @@ import UIKit
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
       var posts: [Post]?
-//    var posts: [Post] = {
-//
-//        let blankProfile = Profile()
-//        blankProfile.profileImage = "steve"
-//        blankProfile.profileName = "steve jobs"
-//
-//        let blankProfile2 = Profile()
-//        blankProfile2.profileImage = "elon"
-//        blankProfile2.profileName = "elon musk"
-//
-//        let blankPost = Post()
-//        blankPost.numberOfLikes = 142
-//        blankPost.postImage = "mark"
-//        blankPost.profile = blankProfile
-//
-//        let blankPost2 = Post()
-//        blankPost2.numberOfLikes = 12889232198823
-//        blankPost2.postImage = "steve"
-//        blankPost2.profile = blankProfile2
-//
-//        return [blankPost, blankPost2]
-//
-//    }()
     
     let storyCell = "storyCell"
     lazy var collectionViewOne: UICollectionView = {
@@ -57,14 +34,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionViewTwo.backgroundColor = .white
         return collectionViewTwo
     }()
-//
-    
-    func setupNavbar() {
-        
-        self.tabBarController?.navigationItem.title = "home"
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "message", style: .plain, target: self, action: #selector(showChatScreen))
-    }
-    
     
     func fetchPosts() {
         let url = NSURL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
@@ -100,19 +69,21 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             } catch let jsonError{
                 print("error in json\(jsonError)")
             }
-            }.resume()
-        
+        }.resume()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.navigationItem.title = "home"
+        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "message", style: .plain, target: self, action: #selector(showChatScreen))
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         
+//        setupNavbar()
         fetchPosts()
-//        FetchImagePosts().fetchPosts()
-        
-        setupNavbar()
         
         collectionViewOne.delegate = self
         collectionViewOne.dataSource = self

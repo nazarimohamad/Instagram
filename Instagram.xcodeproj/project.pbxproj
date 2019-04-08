@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1247C7172259D536008CC881 /* FetchImagePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C7162259D536008CC881 /* FetchImagePosts.swift */; };
 		1247C71A225A0A69008CC881 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C719225A0A69008CC881 /* Extentions.swift */; };
+		1247C71C225A89B2008CC881 /* ContactViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C71B225A89B2008CC881 /* ContactViewController .swift */; };
 		124A9BA2225621C100CB1A84 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA1225621C100CB1A84 /* CustomTabBar.swift */; };
 		124A9BA422562A3C00CB1A84 /* viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA322562A3C00CB1A84 /* viewController.swift */; };
 		124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA5225698E900CB1A84 /* ChatViewController.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		1247C7162259D536008CC881 /* FetchImagePosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImagePosts.swift; sourceTree = "<group>"; };
 		1247C719225A0A69008CC881 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		1247C71B225A89B2008CC881 /* ContactViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactViewController .swift"; sourceTree = "<group>"; };
 		124A9BA1225621C100CB1A84 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		124A9BA322562A3C00CB1A84 /* viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewController.swift; sourceTree = "<group>"; };
 		124A9BA5225698E900CB1A84 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				124A9BA1225621C100CB1A84 /* CustomTabBar.swift */,
 				124A9BA322562A3C00CB1A84 /* viewController.swift */,
 				124A9BA5225698E900CB1A84 /* ChatViewController.swift */,
+				1247C71B225A89B2008CC881 /* ContactViewController .swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */,
 				129682282254AF9700A9D098 /* HomeView.swift in Sources */,
 				1296821B2254A03800A9D098 /* Instagram.xcdatamodeld in Sources */,
+				1247C71C225A89B2008CC881 /* ContactViewController .swift in Sources */,
 				129682132254A03800A9D098 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

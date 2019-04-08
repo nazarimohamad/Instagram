@@ -10,12 +10,16 @@ import UIKit
 
 class viewController: UIViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.navigationItem.title = "recent"
+        tabBarController?.navigationItem.rightBarButtonItem = nil
+        view.backgroundColor = .red
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "recent"
-      view.backgroundColor = .red
     }
     
     
-
+  
 }
