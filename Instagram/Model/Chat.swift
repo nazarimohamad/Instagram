@@ -11,14 +11,16 @@ import UIKit
 
 class Friend: NSObject {
     
-    var name: String
-    var message: Message?
-    
-    init(name: String) {
-        self.name = name
-    }
+    var name: String?
+    var profileImage: String?
+
 }
+
 
 class Message: NSObject {
     
+    var text: String?
+    var date: NSDate?
+    
+    var friend: Friend?
 }

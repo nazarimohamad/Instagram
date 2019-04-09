@@ -126,7 +126,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         } else if collectionView == self.collectionViewTwo {
             let cCell = collectionViewTwo.dequeueReusableCell(withReuseIdentifier: cardCell, for: indexPath as IndexPath) as! CardCell
-            cCell.post = posts?[indexPath.row]
+            cCell.post = posts?[indexPath.item]
             return cCell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)

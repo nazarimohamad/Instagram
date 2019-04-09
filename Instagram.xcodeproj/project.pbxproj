@@ -24,6 +24,7 @@
 		12C6EF812258A3E1005C2E1D /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6EF802258A3E1005C2E1D /* PostModel.swift */; };
 		12D55E61225B6A57003B7570 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D55E60225B6A57003B7570 /* Chat.swift */; };
 		12D55E63225B795B003B7570 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D55E62225B795B003B7570 /* MessageViewController.swift */; };
+		12D55E65225B9D93003B7570 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D55E64225B9D93003B7570 /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		12C6EF802258A3E1005C2E1D /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		12D55E60225B6A57003B7570 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		12D55E62225B795B003B7570 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		12D55E64225B9D93003B7570 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			children = (
 				129682272254AF9700A9D098 /* HomeView.swift */,
 				12ADDB7522573C0C00F95F20 /* ChatListView.swift */,
+				12D55E64225B9D93003B7570 /* MessageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				12D55E63225B795B003B7570 /* MessageViewController.swift in Sources */,
 				124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */,
 				12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */,
+				12D55E65225B9D93003B7570 /* MessageView.swift in Sources */,
 				129682282254AF9700A9D098 /* HomeView.swift in Sources */,
 				12D55E61225B6A57003B7570 /* Chat.swift in Sources */,
 				1296821B2254A03800A9D098 /* Instagram.xcdatamodeld in Sources */,
