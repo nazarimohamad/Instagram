@@ -8,32 +8,18 @@
 
 import UIKit
 
-class ContactViewController: UIViewController {
+class contactViewController: UIViewController {
     
-//    
-//    lazy var avatar: UIImageView = {
-//        let imageView = UIImageView(image: UIImage(named: "steve"))
-//        imageView.layer.borderWidth = 3.0
-//        imageView.layer.borderColor = UIColor.lightGray.cgColor
-//        imageView.layer.cornerRadius = 64.0
-//        imageView.clipsToBounds = true
-//        imageView.contentMode = .scaleToFill
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        return imageView
-//    }()
-//    
-//    lazy var upperView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .gray
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.navigationItem.title = "contact"
+        tabBarController?.navigationItem.rightBarButtonItem = nil
+        view.backgroundColor = .white
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-
         
+        setupUpperView()
     }
-
+    
 }

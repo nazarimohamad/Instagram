@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		12035755225DEBA900BA85BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12035754225DEBA900BA85BB /* GoogleService-Info.plist */; };
+		12035757225DF4B200BA85BB /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12035756225DF4B200BA85BB /* ContactView.swift */; };
 		1247C7172259D536008CC881 /* FetchImagePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C7162259D536008CC881 /* FetchImagePosts.swift */; };
 		1247C71A225A0A69008CC881 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C719225A0A69008CC881 /* CustomImageView.swift */; };
 		1247C71C225A89B2008CC881 /* ContactViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247C71B225A89B2008CC881 /* ContactViewController .swift */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		12035754225DEBA900BA85BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		12035756225DF4B200BA85BB /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		1247C7162259D536008CC881 /* FetchImagePosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImagePosts.swift; sourceTree = "<group>"; };
 		1247C719225A0A69008CC881 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		1247C71B225A89B2008CC881 /* ContactViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactViewController .swift"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				129682272254AF9700A9D098 /* HomeView.swift */,
 				12ADDB7522573C0C00F95F20 /* ChatListView.swift */,
 				12D55E64225B9D93003B7570 /* MessageView.swift */,
+				12035756225DF4B200BA85BB /* ContactView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */,
 				12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */,
 				12D55E65225B9D93003B7570 /* MessageView.swift in Sources */,
+				12035757225DF4B200BA85BB /* ContactView.swift in Sources */,
 				129682282254AF9700A9D098 /* HomeView.swift in Sources */,
 				127EBF0C225CECFA0096FA7D /* MessageData.swift in Sources */,
 				12D55E61225B6A57003B7570 /* Chat.swift in Sources */,
