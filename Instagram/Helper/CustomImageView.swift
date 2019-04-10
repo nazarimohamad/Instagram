@@ -29,7 +29,7 @@ class CustomImageView: UIImageView {
         URLSession.shared.dataTask(with: url! as URL) { (data, response, error) in
             
             if error != nil {
-                print("there is error to get post photo from url \(String(describing: error))")
+                print("there is an error to get post photo from url \(String(describing: error))")
             }
             DispatchQueue.main.async {
                 
