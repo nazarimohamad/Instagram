@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
+import FirebaseStorage
 
 
-class SigupViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+class SigupViewController: UIViewController {
     
     let imagePicker = UIImagePickerController()
   
@@ -160,6 +163,7 @@ class SigupViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func createUserWith(email: String, password: String) {
+        
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             
             if error != nil {
@@ -171,11 +175,89 @@ class SigupViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
             else {
                 
-                self.present(CompleteProfileViewController(), animated: true, completion: nil)
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                self.updateProfileImage(self.profileImage.image!, completion: { (url) in
+                    
+                    if url != nil {
+                        
+                        changeRequest?.displayName = self.userName.text
+                        changeRequest?.photoURL = url
+                        
+                        changeRequest?.commitChanges(completion: { (error) in
+                            if error != nil {
+                                print("success to save user name and photo")
+                                //                            self.dismiss(animated: false, completion: nil)
+                                
+                                self.saveProfile(username: self.userName.text!, profileImageUrl: url!, completion: { (success) in
+                                    if success {
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
+                                })
+                                
+                            } else {
+                                print("error to save user name and photo")
+                            }
+                        })
+                       
+                    } else {
+                        print("error to save user name and photo with url")
+                    }
+                    
+
+                    
+                })
+                
+//                self.present(CompleteProfileViewController(), animated: true, completion: nil)
             }
         }
     }
     
+    
+    
+    func updateProfileImage(_ image: UIImage, completion: @escaping ((_ url: URL?)-> ())) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let storageRef = Storage.storage().reference().child("user\(uid)")
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        
+        storageRef.putData(imageData, metadata: metaData) { metaData, error in
+            if error == nil, metaData != nil {
+                storageRef.downloadURL(completion: { (url, error) in
+                    completion(url)
+                    print("save url successfuly")
+                })
+            } else {
+                completion(nil)
+                print("there is error to save url")
+            }
+        }
+    }
+    
+    
+    func saveProfile(username: String, profileImageUrl: URL, completion: @escaping ((_ success: Bool) -> ())) {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let databaseRef = Database.database().reference().child("user/profile/\(uid)")
+        let userObject = [
+            "username": username,
+            "photoURL": profileImageUrl.absoluteString
+            ] as [String:Any]
+        
+        databaseRef.setValue(userObject) { (error, ref) in
+           completion(error == nil)
+        }
+    }
+    
+    
+}
+
+
+
+extension SigupViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @objc func addPhotoFromActionSheet() {
         print("add new photo button pressed")
@@ -199,12 +281,12 @@ class SigupViewController: UIViewController, UIImagePickerControllerDelegate, UI
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         switch source {
-        case 1:
-            imagePicker.sourceType = .photoLibrary
-        case 2:
-            imagePicker.sourceType = .camera
-        default:
-            imagePicker.sourceType = .photoLibrary
+            case 1:
+                imagePicker.sourceType = .photoLibrary
+            case 2:
+                imagePicker.sourceType = .camera
+            default:
+                imagePicker.sourceType = .photoLibrary
         }
         present(imagePicker, animated: true, completion: nil)
     }
@@ -215,7 +297,5 @@ class SigupViewController: UIViewController, UIImagePickerControllerDelegate, UI
         profileImage.image = userPickerImage
         imagePicker.dismiss(animated: true, completion: nil)
     }
-    
 }
-
 
