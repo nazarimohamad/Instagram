@@ -82,7 +82,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         
-//        setupNavbar()
         fetchPosts()
         
         collectionViewOne.delegate = self

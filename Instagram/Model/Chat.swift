@@ -9,11 +9,11 @@
 import UIKit
 
 
+
 class Friend: NSObject {
     
     var name: String?
     var profileImage: String?
-
 }
 
 

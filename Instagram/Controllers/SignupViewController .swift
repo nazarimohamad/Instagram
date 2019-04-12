@@ -57,7 +57,7 @@ class SigupViewController: UIViewController {
         
         view.addSubview(addPhoto)
         addPhoto.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8).isActive = true
-        addPhoto.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 93).isActive = true
+        addPhoto.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70).isActive = true
         addPhoto.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         
@@ -184,18 +184,19 @@ class SigupViewController: UIViewController {
                         changeRequest?.photoURL = url
                         
                         changeRequest?.commitChanges(completion: { (error) in
-                            if error != nil {
-                                print("success to save user name and photo")
-                                //                            self.dismiss(animated: false, completion: nil)
+                            
+                            if error == nil {
                                 
                                 self.saveProfile(username: self.userName.text!, profileImageUrl: url!, completion: { (success) in
                                     if success {
-                                        self.dismiss(animated: true, completion: nil)
+                                        let tabBarController = UINavigationController.init(rootViewController: CustomTabBarController())
+                                       self.present(tabBarController, animated: true, completion: nil)
                                     }
+                                    
                                 })
                                 
                             } else {
-                                print("error to save user name and photo")
+                                print("error is not nil before save profile")
                             }
                         })
                        
@@ -206,8 +207,6 @@ class SigupViewController: UIViewController {
 
                     
                 })
-                
-//                self.present(CompleteProfileViewController(), animated: true, completion: nil)
             }
         }
     }
@@ -218,7 +217,7 @@ class SigupViewController: UIViewController {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let storageRef = Storage.storage().reference().child("user\(uid)")
+        let storageRef = Storage.storage().reference().child("users\(uid)")
         
         guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
         let metaData = StorageMetadata()
@@ -229,6 +228,7 @@ class SigupViewController: UIViewController {
                 storageRef.downloadURL(completion: { (url, error) in
                     completion(url)
                     print("save url successfuly")
+                    
                 })
             } else {
                 completion(nil)
@@ -241,7 +241,7 @@ class SigupViewController: UIViewController {
     func saveProfile(username: String, profileImageUrl: URL, completion: @escaping ((_ success: Bool) -> ())) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let databaseRef = Database.database().reference().child("user/profile/\(uid)")
+        let databaseRef = Database.database().reference().child("users/profile/\(uid)")
         let userObject = [
             "username": username,
             "photoURL": profileImageUrl.absoluteString
@@ -260,7 +260,7 @@ class SigupViewController: UIViewController {
 extension SigupViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @objc func addPhotoFromActionSheet() {
-        print("add new photo button pressed")
+        
         let alert = UIAlertController(title: "select photo", message: "this is message", preferredStyle: .actionSheet)
         let galery = UIAlertAction(title: "Gallery", style: .default) { (galery) in
             self.takeImage(1)

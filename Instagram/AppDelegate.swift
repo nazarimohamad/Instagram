@@ -23,9 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
     
+                
         let tabBarController = CustomTabBarController()
-        window?.rootViewController = UINavigationController.init(rootViewController: tabBarController)
-        
+        self.window?.rootViewController = UINavigationController.init(rootViewController: tabBarController)
+    
         
         return true
     }

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
+import FirebaseUI
 import JTMaterialTransition
 
 
@@ -24,8 +27,34 @@ class contactViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        
         self.transition = JTMaterialTransition(animatedView: self.signupButton)
+        
+        fetchUserProfile()
+    }
+    
+    @objc func handleSignup() {
+        didPresentControllerButtonTouch()
+    }
+    
+    func didPresentControllerButtonTouch () {
+        let controller = SigupViewController()
+        
+        controller.modalPresentationStyle = .custom
+        controller.transitioningDelegate = self.transition
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    func fetchUserProfile() {
+        
+        let uid = Auth.auth().currentUser?.uid
+        let pathReference = Storage.storage().reference(withPath: "users\(uid!)")
+        
+        let imageView: UIImageView = avatar
+        let placeholderImage = UIImage(named: "placeholder.jpg")
+        imageView.sd_setImage(with: pathReference, placeholderImage: placeholderImage)
+    
+        
     }
     
     func setupView() {
@@ -74,6 +103,7 @@ class contactViewController: UIViewController {
         image.layer.borderColor = UIColor.red.cgColor
         image.layer.cornerRadius = 64
         image.contentMode = .scaleAspectFill
+        image.layer.masksToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -97,22 +127,4 @@ class contactViewController: UIViewController {
         button.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
         return button
     }()
-    
-    @objc func handleSignup() {
-        
-        didPresentControllerButtonTouch()
-
-    }
-
-
-func didPresentControllerButtonTouch () {
-    let controller = SigupViewController()
-    
-    controller.modalPresentationStyle = .custom
-    controller.transitioningDelegate = self.transition
-    
-    self.present(controller, animated: true, completion: nil)
-}
-    
-    
 }
