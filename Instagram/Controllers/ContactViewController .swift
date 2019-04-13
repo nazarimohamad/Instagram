@@ -32,6 +32,60 @@ class contactViewController: UIViewController {
         fetchUserProfile()
     }
     
+    func fetchUserProfile() {
+        if Auth.auth().currentUser != nil {
+            
+            let uid = Auth.auth().currentUser?.uid
+            let pathReference = Storage.storage().reference(withPath: "users\(uid!)")
+            
+            let imageView: UIImageView = avatar
+            let placeholderImage = UIImage(named: "placeholder.jpg")
+            imageView.sd_setImage(with: pathReference, placeholderImage: placeholderImage)
+        }
+ 
+    }
+    
+    func setupView() {
+        
+        view.addSubview(upperView)
+        upperView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        upperView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        upperView.heightAnchor.constraint(equalToConstant: 220).isActive = true
+        
+        view.addSubview(avatar)
+        avatar.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
+        avatar.centerXAnchor.constraint(equalTo: upperView.centerXAnchor).isActive = true
+        avatar.widthAnchor.constraint(equalToConstant: 128).isActive = true
+        avatar.heightAnchor.constraint(equalToConstant: 128).isActive = true
+        
+        if Auth.auth().currentUser != nil {
+            
+            view.addSubview(logoutButton)
+            logoutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100).isActive = true
+            logoutButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
+            logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
+        }
+        else {
+            
+            view.addSubview(loginButton)
+            let width = (view.frame.width / 2) - 20
+            loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100).isActive = true
+            loginButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+            loginButton.widthAnchor.constraint(equalToConstant: width).isActive = true
+            loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
+            
+            view.addSubview(signupButton)
+            signupButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100).isActive = true
+            signupButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+            signupButton.widthAnchor.constraint(equalToConstant: width).isActive = true
+            signupButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
+        }
+
+        
+        
+    }
+    
     @objc func handleSignup() {
         didPresentControllerButtonTouch()
     }
@@ -45,48 +99,18 @@ class contactViewController: UIViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
-    func fetchUserProfile() {
-        
-        let uid = Auth.auth().currentUser?.uid
-        let pathReference = Storage.storage().reference(withPath: "users\(uid!)")
-        
-        let imageView: UIImageView = avatar
-        let placeholderImage = UIImage(named: "placeholder.jpg")
-        imageView.sd_setImage(with: pathReference, placeholderImage: placeholderImage)
     
-        
+    @objc func handleLogout() {
+        if Auth.auth().currentUser != nil {
+            do {
+                try Auth.auth().signOut()
+                self.dismiss(animated: true, completion: nil)
+            } catch {
+                print("error to signout")
+            }
+        }
     }
     
-    func setupView() {
-        
-        view.addSubview(upperView)
-        upperView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        upperView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        upperView.heightAnchor.constraint(equalToConstant: 220).isActive = true
-        
-        
-        view.addSubview(avatar)
-        avatar.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
-        avatar.centerXAnchor.constraint(equalTo: upperView.centerXAnchor).isActive = true
-        avatar.widthAnchor.constraint(equalToConstant: 128).isActive = true
-        avatar.heightAnchor.constraint(equalToConstant: 128).isActive = true
-        
-        
-        view.addSubview(loginButton)
-        let width = (view.frame.width / 2) - 20
-        loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100).isActive = true
-        loginButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        loginButton.widthAnchor.constraint(equalToConstant: width).isActive = true
-        loginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
-        
-        view.addSubview(signupButton)
-        signupButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100).isActive = true
-        signupButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        signupButton.widthAnchor.constraint(equalToConstant: width).isActive = true
-        signupButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
-        
-        
-    }
     
     let upperView: UIView = {
         let view = UIView()
@@ -125,6 +149,16 @@ class contactViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var logoutButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("LOGOUT", for: .normal)
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 10
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
         return button
     }()
 }
