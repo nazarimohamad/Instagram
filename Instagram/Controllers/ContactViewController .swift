@@ -28,6 +28,7 @@ class contactViewController: UIViewController {
         
         setupView()
         self.transition = JTMaterialTransition(animatedView: self.signupButton)
+        self.transition = JTMaterialTransition(animatedView: self.loginButton)
         
         fetchUserProfile()
     }
@@ -100,6 +101,15 @@ class contactViewController: UIViewController {
     }
     
     
+    @objc func handleLogin() {
+        let controller = LoginViewController()
+        controller.modalPresentationStyle = .custom
+        controller.transitioningDelegate = self.transition
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    
     @objc func handleLogout() {
         if Auth.auth().currentUser != nil {
             do {
@@ -139,6 +149,7 @@ class contactViewController: UIViewController {
         button.backgroundColor = .cyan
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         return button
     }()
     
