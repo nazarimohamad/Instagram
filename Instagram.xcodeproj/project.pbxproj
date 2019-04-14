@@ -25,6 +25,7 @@
 		129682282254AF9700A9D098 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682272254AF9700A9D098 /* HomeView.swift */; };
 		12A20A122260BE79006A5709 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A20A112260BE79006A5709 /* LoginViewController.swift */; };
 		12A20A1622611BFF006A5709 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A20A1522611BFF006A5709 /* User.swift */; };
+		12A979A42263188000433D5F /* FetchingUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A979A32263188000433D5F /* FetchingUserProfile.swift */; };
 		12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ADDB7522573C0C00F95F20 /* ChatListView.swift */; };
 		12C6EF812258A3E1005C2E1D /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6EF802258A3E1005C2E1D /* PostModel.swift */; };
 		12D55E61225B6A57003B7570 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D55E60225B6A57003B7570 /* Chat.swift */; };
@@ -54,6 +55,7 @@
 		129682272254AF9700A9D098 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		12A20A112260BE79006A5709 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		12A20A1522611BFF006A5709 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		12A979A32263188000433D5F /* FetchingUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingUserProfile.swift; sourceTree = "<group>"; };
 		12ADDB7522573C0C00F95F20 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
 		12C6EF802258A3E1005C2E1D /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		12D55E60225B6A57003B7570 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				1247C7162259D536008CC881 /* FetchImagePosts.swift */,
+				12A979A32263188000433D5F /* FetchingUserProfile.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				12D55E61225B6A57003B7570 /* Chat.swift in Sources */,
 				12A20A122260BE79006A5709 /* LoginViewController.swift in Sources */,
 				1296821B2254A03800A9D098 /* Instagram.xcdatamodeld in Sources */,
+				12A979A42263188000433D5F /* FetchingUserProfile.swift in Sources */,
 				1247C71C225A89B2008CC881 /* ContactViewController .swift in Sources */,
 				129682132254A03800A9D098 /* AppDelegate.swift in Sources */,
 				12035759225E277D00BA85BB /* SignupViewController .swift in Sources */,

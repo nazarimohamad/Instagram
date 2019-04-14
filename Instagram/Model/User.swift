@@ -11,6 +11,6 @@ import UIKit
 
 class User: NSObject {
     
-    var user: String?
-    var userImageName: String?
+    var username: String?
+    var usernameImageUrl: String?
 }

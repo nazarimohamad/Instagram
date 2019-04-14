@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseStorage
-import FirebaseUI
+//import FirebaseUI
 import JTMaterialTransition
 
 
@@ -30,21 +30,57 @@ class contactViewController: UIViewController {
         self.transition = JTMaterialTransition(animatedView: self.signupButton)
         self.transition = JTMaterialTransition(animatedView: self.loginButton)
         
-        fetchUserProfile()
+//        fetchUserProfile()
+        fetchUsername()
+        
     }
     
-    func fetchUserProfile() {
-        if Auth.auth().currentUser != nil {
+    var user: [User]?
+    
+    func fetchUsername() {
+        
+        FetchingUserProfile.shareInstance.fetchUsername { (user: [User]) in
+            self.user = user
             
-            let uid = Auth.auth().currentUser?.uid
-            let pathReference = Storage.storage().reference(withPath: "users\(uid!)")
-            
-            let imageView: UIImageView = avatar
-            let placeholderImage = UIImage(named: "placeholder.jpg")
-            imageView.sd_setImage(with: pathReference, placeholderImage: placeholderImage)
+            self.setupProfile()
         }
- 
     }
+    
+    
+    func setupProfile() {
+        let firstUser = user![0]
+        userLabel.text = firstUser.username
+        
+        let usernameImageUrl = firstUser.usernameImageUrl
+        let storageRef = Storage.storage().reference(forURL: usernameImageUrl!)
+        storageRef.downloadURL(completion: { (url, error) in
+            if error != nil {
+                //faied
+                print("error to fetch image \(LocalizedError.self)")
+            }
+            do {
+                let data = try Data(contentsOf: url!)
+                let image = UIImage(data: data as Data)
+                self.avatar.image = image
+            } catch {
+                print("error to fetch image\(LocalizedError.self)")
+            }
+        })
+    }
+    
+    
+//    func fetchUserProfile() {
+//        if Auth.auth().currentUser != nil {
+//
+//            let uid = Auth.auth().currentUser?.uid
+//            let pathReference = Storage.storage().reference(withPath: "users\(uid!)")
+//
+//            let imageView: UIImageView = avatar
+//            let placeholderImage = UIImage(named: "placeholder.jpg")
+//            imageView.sd_setImage(with: pathReference, placeholderImage: placeholderImage)
+//        }
+//
+//    }
     
     func setupView() {
         
@@ -58,6 +94,10 @@ class contactViewController: UIViewController {
         avatar.centerXAnchor.constraint(equalTo: upperView.centerXAnchor).isActive = true
         avatar.widthAnchor.constraint(equalToConstant: 128).isActive = true
         avatar.heightAnchor.constraint(equalToConstant: 128).isActive = true
+        
+        view.addSubview(userLabel)
+        userLabel.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: 50).isActive = true
+        userLabel.centerXAnchor.constraint(equalTo: upperView.centerXAnchor).isActive = true
         
         if Auth.auth().currentUser != nil {
             
@@ -128,7 +168,7 @@ class contactViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+  
     
     let avatar: UIImageView = {
         let image = UIImageView()
@@ -146,7 +186,7 @@ class contactViewController: UIViewController {
     lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("LOGIN", for: .normal)
-        button.backgroundColor = .cyan
+        button.backgroundColor = UIColor(displayP3Red: 54/256, green: 70/256, blue: 93/256, alpha: 1)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
@@ -156,7 +196,7 @@ class contactViewController: UIViewController {
     lazy var signupButton: UIButton = {
         let button = UIButton()
         button.setTitle("SIGNUP", for: .normal)
-        button.backgroundColor = .green
+        button.backgroundColor = UIColor(displayP3Red: 54/256, green: 70/256, blue: 93/256, alpha: 1)
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
@@ -171,5 +211,15 @@ class contactViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
         return button
+    }()
+    
+    
+    let userLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.text = "username"
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 }
