@@ -51,17 +51,22 @@ extension ChatViewController {
             
             let markMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             markMessage.text = "hello this is steve jobs"
-            markMessage.date = NSDate(timeIntervalSinceNow: -5 * 60)
+            markMessage.date = NSDate().addingTimeInterval(-6 * 60)
             markMessage.friend = mark
             
             let steve = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-            steve.name = "steve jobs"
+            steve.name = "steve"
             steve.profileImageName = "steve"
             
             let steveMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             steveMessage.text = "apple is the best product in the world"
-            steveMessage.date = NSDate(timeIntervalSinceNow: -4 * 60)
+            steveMessage.date = NSDate().addingTimeInterval(-5 * 60)
             steveMessage.friend = steve
+            
+            let steveMessage2 = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
+            steveMessage2.text = "just released swift 5.1"
+            steveMessage2.date = NSDate().addingTimeInterval(-1 * 60)
+            steveMessage2.friend = steve
             
             let harvey = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
             harvey.name = "harvey spector"
@@ -69,7 +74,7 @@ extension ChatViewController {
             
             let harveyMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             harveyMessage.text = "new model is going in the way"
-            harveyMessage.date = NSDate(timeIntervalSinceNow: -3 * 60)
+            harveyMessage.date = NSDate().addingTimeInterval(-4 * 60)
             harveyMessage.friend = harvey
             
             createCustomMessage(message: "this is for test", secAgo: 2, name: "steve 2", profileImageName: "steve")
@@ -98,7 +103,7 @@ extension ChatViewController {
             
             let newMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             newMessage.text = message
-            newMessage.date = NSDate(timeIntervalSinceNow: -secAgo * 60)
+            newMessage.date = NSDate().addingTimeInterval(-secAgo * 60)
             newMessage.friend = friend
             messages = [newMessage]
         }
@@ -109,14 +114,42 @@ extension ChatViewController {
         
         let delegate = UIApplication.shared.delegate as? AppDelegate
         if let context = delegate?.persistentContainer.viewContext {
-            let fetchRequest = NSFetchRequest<Message>(entityName: "Message")
+           
+            if let friends = fetchFriends() {
+                
+                messages = [Message]()
+                
+                for friend in friends {
+                    
+                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+                    fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "date", ascending: false)]
+                    fetchRequest.predicate = NSPredicate(format: "friend.name = %@", friend.name!)
+                    fetchRequest.fetchLimit = 1
+                    do {
+                        let fetchMessages = try context.fetch(fetchRequest) as? [Message]
+                        messages?.append(contentsOf: fetchMessages!)
+                    } catch let err {
+                        print("there is error to load data\(err)")
+                    }
+                }
+                messages = messages?.sorted(by: {$0.date!.compare($1.date! as Date) == .orderedDescending })
+            }
+        
+        }
+    }
+    
+    
+    private func fetchFriends() -> [Friend]? {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        if let context = delegate?.persistentContainer.viewContext {
+           let fetchFriends = NSFetchRequest<NSFetchRequestResult>(entityName: "Friend")
             do {
-                messages = try context.fetch(fetchRequest) as [Message]
-            } catch let err {
-                print("there is error to load data\(err)")
+                return try context.fetch(fetchFriends) as? [Friend]
+            } catch {
+                print("error\(LocalizedError.self)")
             }
         }
-        
+        return nil
     }
     
 }
