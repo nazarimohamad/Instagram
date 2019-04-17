@@ -68,6 +68,8 @@ extension ChatViewController {
             steveMessage2.date = NSDate().addingTimeInterval(-1 * 60)
             steveMessage2.friend = steve
             
+            createCustomMessageForSteve(context: context)
+            
             let harvey = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
             harvey.name = "harvey spector"
             harvey.profileImageName = "steve"
@@ -77,11 +79,11 @@ extension ChatViewController {
             harveyMessage.date = NSDate().addingTimeInterval(-4 * 60)
             harveyMessage.friend = harvey
             
-            createCustomMessage(message: "this is for test", secAgo: 2, name: "steve 2", profileImageName: "steve")
+//            createCustomMessage(message: "this is for test", secAgo: 2, name: "steve 2", profileImageName: "steve")
             
-            messages?.append(harveyMessage)
-            messages?.append(markMessage)
-            messages?.append(steveMessage)
+//            messages?.append(harveyMessage)
+//            messages?.append(markMessage)
+//            messages?.append(steveMessage)
             
             do {
                 try context.save()
@@ -93,21 +95,25 @@ extension ChatViewController {
         
     }
     
-    private func createCustomMessage(message: String, secAgo: Double, name: String, profileImageName: String) {
-        
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        if let context = delegate?.persistentContainer.viewContext {
-            let friend = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-            friend.name = name
-            friend.profileImageName = profileImageName
+    static func createCustomMessage(text: String, minAgo: Double, friend: Friend, context: NSManagedObjectContext, isSender: Bool = false) -> Message {
             
-            let newMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
-            newMessage.text = message
-            newMessage.date = NSDate().addingTimeInterval(-secAgo * 60)
-            newMessage.friend = friend
-            messages = [newMessage]
-        }
+            let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
+            message.text = text
+            message.date = NSDate().addingTimeInterval(-minAgo * 60)
+            message.friend = friend
+        return message
     }
+    
+    private func createCustomMessageForSteve(context: NSManagedObjectContext) {
+        
+        let steve = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
+        steve.name = "steve21"
+        steve.profileImageName = "steve"
+        
+        ChatViewController.createCustomMessage(text: "this is for test", minAgo: 1, friend: steve, context: context)
+        ChatViewController.createCustomMessage(text: "test 2", minAgo: 0, friend: steve, context: context)
+    }
+    
     
     
     func loadData() {
