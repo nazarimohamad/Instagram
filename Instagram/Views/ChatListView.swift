@@ -31,7 +31,7 @@ class ChatListCell: BaseCell {
                 timeLable.text = dateFormatter.string(from: date as Date)
             }
             
-            if let profileImageName = message?.friend?.profileImage {
+            if let profileImageName = message?.friend?.profileImageName {
                 profileImage.image = UIImage(named: profileImageName)
             }
             

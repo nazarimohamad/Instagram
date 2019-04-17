@@ -15,6 +15,10 @@
 		124A9BA2225621C100CB1A84 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA1225621C100CB1A84 /* CustomTabBar.swift */; };
 		124A9BA422562A3C00CB1A84 /* viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA322562A3C00CB1A84 /* viewController.swift */; };
 		124A9BA6225698E900CB1A84 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A9BA5225698E900CB1A84 /* ChatViewController.swift */; };
+		1264EA7222671C390093A756 /* Friend+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1264EA6E22671C390093A756 /* Friend+CoreDataClass.swift */; };
+		1264EA7322671C390093A756 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1264EA6F22671C390093A756 /* Friend+CoreDataProperties.swift */; };
+		1264EA7422671C390093A756 /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1264EA7022671C390093A756 /* Message+CoreDataClass.swift */; };
+		1264EA7522671C390093A756 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1264EA7122671C390093A756 /* Message+CoreDataProperties.swift */; };
 		127EBF0C225CECFA0096FA7D /* MessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EBF0B225CECFA0096FA7D /* MessageData.swift */; };
 		129682132254A03800A9D098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682122254A03800A9D098 /* AppDelegate.swift */; };
 		129682152254A03800A9D098 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682142254A03800A9D098 /* HomeController.swift */; };
@@ -28,7 +32,6 @@
 		12A979A42263188000433D5F /* FetchingUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A979A32263188000433D5F /* FetchingUserProfile.swift */; };
 		12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ADDB7522573C0C00F95F20 /* ChatListView.swift */; };
 		12C6EF812258A3E1005C2E1D /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6EF802258A3E1005C2E1D /* PostModel.swift */; };
-		12D55E61225B6A57003B7570 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D55E60225B6A57003B7570 /* Chat.swift */; };
 		12D55E63225B795B003B7570 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D55E62225B795B003B7570 /* MessageViewController.swift */; };
 		12D55E65225B9D93003B7570 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D55E64225B9D93003B7570 /* MessageView.swift */; };
 		BD67E62365C640ACBE72D316 /* Pods_Instagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B40508101422172489A02F96 /* Pods_Instagram.framework */; };
@@ -43,6 +46,13 @@
 		124A9BA1225621C100CB1A84 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		124A9BA322562A3C00CB1A84 /* viewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewController.swift; sourceTree = "<group>"; };
 		124A9BA5225698E900CB1A84 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		1264EA6D22671BFF0093A756 /* v1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v1.xcdatamodel; sourceTree = "<group>"; };
+		1264EA6E22671C390093A756 /* Friend+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1264EA6F22671C390093A756 /* Friend+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Friend+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1264EA7022671C390093A756 /* Message+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1264EA7122671C390093A756 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1264EA77226726450093A756 /* v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.xcdatamodel; sourceTree = "<group>"; };
+		1264EA78226726C30093A756 /* v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v3.xcdatamodel; sourceTree = "<group>"; };
 		127EBF0B225CECFA0096FA7D /* MessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageData.swift; sourceTree = "<group>"; };
 		1296820F2254A03800A9D098 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		129682122254A03800A9D098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +68,6 @@
 		12A979A32263188000433D5F /* FetchingUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingUserProfile.swift; sourceTree = "<group>"; };
 		12ADDB7522573C0C00F95F20 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
 		12C6EF802258A3E1005C2E1D /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
-		12D55E60225B6A57003B7570 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		12D55E62225B795B003B7570 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		12D55E64225B9D93003B7570 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		3C9552C821A595755273E5B7 /* Pods-Instagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Instagram/Pods-Instagram.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +130,17 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		1264EA7622671EAA0093A756 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1264EA6E22671C390093A756 /* Friend+CoreDataClass.swift */,
+				1264EA6F22671C390093A756 /* Friend+CoreDataProperties.swift */,
+				1264EA7022671C390093A756 /* Message+CoreDataClass.swift */,
+				1264EA7122671C390093A756 /* Message+CoreDataProperties.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		129682062254A03800A9D098 = {
 			isa = PBXGroup;
 			children = (
@@ -161,8 +181,8 @@
 		12C6EF7F2258A390005C2E1D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1264EA7622671EAA0093A756 /* Chat */,
 				12C6EF802258A3E1005C2E1D /* PostModel.swift */,
-				12D55E60225B6A57003B7570 /* Chat.swift */,
 				12A20A1522611BFF006A5709 /* User.swift */,
 			);
 			path = Model;
@@ -329,12 +349,15 @@
 				12D55E65225B9D93003B7570 /* MessageView.swift in Sources */,
 				129682282254AF9700A9D098 /* HomeView.swift in Sources */,
 				127EBF0C225CECFA0096FA7D /* MessageData.swift in Sources */,
-				12D55E61225B6A57003B7570 /* Chat.swift in Sources */,
+				1264EA7422671C390093A756 /* Message+CoreDataClass.swift in Sources */,
+				1264EA7522671C390093A756 /* Message+CoreDataProperties.swift in Sources */,
+				1264EA7322671C390093A756 /* Friend+CoreDataProperties.swift in Sources */,
 				12A20A122260BE79006A5709 /* LoginViewController.swift in Sources */,
 				1296821B2254A03800A9D098 /* Instagram.xcdatamodeld in Sources */,
 				12A979A42263188000433D5F /* FetchingUserProfile.swift in Sources */,
 				1247C71C225A89B2008CC881 /* ContactViewController .swift in Sources */,
 				129682132254A03800A9D098 /* AppDelegate.swift in Sources */,
+				1264EA7222671C390093A756 /* Friend+CoreDataClass.swift in Sources */,
 				12035759225E277D00BA85BB /* SignupViewController .swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -542,6 +565,9 @@
 		129682192254A03800A9D098 /* Instagram.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				1264EA78226726C30093A756 /* v3.xcdatamodel */,
+				1264EA77226726450093A756 /* v2.xcdatamodel */,
+				1264EA6D22671BFF0093A756 /* v1.xcdatamodel */,
 				1296821A2254A03800A9D098 /* Instagram.xcdatamodel */,
 			);
 			currentVersion = 1296821A2254A03800A9D098 /* Instagram.xcdatamodel */;

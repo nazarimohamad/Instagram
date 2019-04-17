@@ -15,12 +15,14 @@ import JTMaterialTransition
 
 class contactViewController: UIViewController {
     
+     var user: [User]?
      var transition: JTMaterialTransition?
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.navigationItem.title = "contact"
         tabBarController?.navigationItem.rightBarButtonItem = nil
         view.backgroundColor = .white
+        fetchUsername()
     }
     
     override func viewDidLoad() {
@@ -31,11 +33,8 @@ class contactViewController: UIViewController {
         self.transition = JTMaterialTransition(animatedView: self.loginButton)
         
 //        fetchUserProfile()
-        fetchUsername()
-        
     }
     
-    var user: [User]?
     
     func fetchUsername() {
         
@@ -174,7 +173,7 @@ class contactViewController: UIViewController {
         let image = UIImageView()
         image.backgroundColor = .gray
         image.layer.borderWidth = 3
-        image.layer.borderColor = UIColor.red.cgColor
+        image.layer.borderColor = UIColor.white.cgColor
         image.layer.cornerRadius = 64
         image.contentMode = .scaleAspectFill
         image.layer.masksToBounds = true
@@ -217,7 +216,7 @@ class contactViewController: UIViewController {
     let userLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18)
-        label.text = "username"
+        label.text = "please login first"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
