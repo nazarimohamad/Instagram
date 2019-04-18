@@ -11,10 +11,13 @@ import UIKit
 
 class MessageCell: BaseCell {
     
-    
+    var message: Message? {
+        didSet {
+            textMessage.text = message?.text
+        }
+    }
     
     let textMessage: UITextView = {
-        var messages: [Message]?
         let message1 = UITextView()
         message1.text = "you are the right person"
         message1.font = UIFont.systemFont(ofSize: 18)
@@ -26,8 +29,6 @@ class MessageCell: BaseCell {
     
     override func setupViews() {
         super.setupViews()
-        backgroundColor = .blue
-        
         
         addSubview(textMessage)
         textMessage.topAnchor.constraint(equalTo: topAnchor).isActive = true

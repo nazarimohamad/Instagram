@@ -68,7 +68,7 @@ extension ChatViewController {
             steveMessage2.date = NSDate().addingTimeInterval(-1 * 60)
             steveMessage2.friend = steve
             
-            createCustomMessageForSteve(context: context)
+//            createCustomMessageForSteve(context: context)
             
             let harvey = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
             harvey.name = "harvey spector"
@@ -79,11 +79,6 @@ extension ChatViewController {
             harveyMessage.date = NSDate().addingTimeInterval(-4 * 60)
             harveyMessage.friend = harvey
             
-//            createCustomMessage(message: "this is for test", secAgo: 2, name: "steve 2", profileImageName: "steve")
-            
-//            messages?.append(harveyMessage)
-//            messages?.append(markMessage)
-//            messages?.append(steveMessage)
             
             do {
                 try context.save()
@@ -104,15 +99,15 @@ extension ChatViewController {
         return message
     }
     
-    private func createCustomMessageForSteve(context: NSManagedObjectContext) {
-        
-        let steve = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-        steve.name = "steve21"
-        steve.profileImageName = "steve"
-        
-        ChatViewController.createCustomMessage(text: "this is for test", minAgo: 1, friend: steve, context: context)
-        ChatViewController.createCustomMessage(text: "test 2", minAgo: 0, friend: steve, context: context)
-    }
+//    private func createCustomMessageForSteve(context: NSManagedObjectContext) {
+//
+//        let steve = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
+//        steve.name = "steve"
+//        steve.profileImageName = "steve"
+    
+//        ChatViewController.createCustomMessage(text: "this is for test", minAgo: 1, friend: steve, context: context)
+//        ChatViewController.createCustomMessage(text: "test 2", minAgo: 0, friend: steve, context: context)
+//    }
     
     
     

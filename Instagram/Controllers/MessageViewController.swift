@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import CoreData
 
 
 class MessageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
-  
+    var messages: [Message]?
+    
+    var friend: Friend? {
+        didSet {
+            navigationItem.title = friend?.name
+            
+            messages = friend?.messages?.allObjects as? [Message]
+        }
+    }
     
     let cellId = "cellId"
     let collectionView: UICollectionView = {
@@ -27,8 +36,6 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        setupTextField()
-        
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -42,8 +49,9 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
         
-        
+        setupTextField()
         NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
     }
     
     @objc func handleShowKeyboard() {
@@ -52,11 +60,16 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        if let count = messages?.count {
+            return count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MessageCell
+       
+        cell.message = messages?[indexPath.item]
         return cell
     }
     
@@ -68,6 +81,27 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
 //        return 0
 //    }
     
+    func setupTextField() {
+        
+        
+        view.addSubview(container)
+        container.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        container.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        container.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        container.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        container.addSubview(messageTextField)
+        messageTextField.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        messageTextField.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10).isActive = true
+        messageTextField.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -60).isActive = true
+        messageTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        container.addSubview(sendButton)
+        sendButton.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        sendButton.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        sendButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
     
     
     let container: UIView = {
@@ -95,26 +129,5 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
         return send
     }()
     
-    func setupTextField() {
-        
-        
-        view.addSubview(container)
-        container.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        container.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        container.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        container.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        container.addSubview(messageTextField)
-        messageTextField.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
-        messageTextField.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10).isActive = true
-        messageTextField.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -60).isActive = true
-        messageTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        container.addSubview(sendButton)
-        sendButton.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
-        sendButton.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        sendButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    }
     
 }
