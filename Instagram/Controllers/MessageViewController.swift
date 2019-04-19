@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-class MessageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class MessageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
     var messages: [Message]?
     
@@ -23,33 +23,24 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     let cellId = "cellId"
-    let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .white
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        return cv
-    }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        collectionView.backgroundColor = .white
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+         setupTextField()
         
-        view.addSubview(collectionView)
-        let width = view.frame.width
-        let height = view.frame.height - 50
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.widthAnchor.constraint(equalToConstant: width).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        let gauid  = view.safeAreaLayoutGuide
+        view.addSubview(container)
+        container.bottomAnchor.constraint(equalTo: gauid.bottomAnchor).isActive = true
+        container.leadingAnchor.constraint(equalTo: gauid.leadingAnchor).isActive = true
+        container.rightAnchor.constraint(equalTo: gauid.rightAnchor).isActive = true
+        container.heightAnchor.constraint(equalToConstant: 50).isActive = true
+
+        
         
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
         
-        setupTextField()
         NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         
     }
@@ -59,36 +50,32 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = messages?.count {
             return count
         }
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MessageCell
-       
         cell.message = messages?[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 100)
+        
+        if let messageText = messages?[indexPath.item].text {
+            let size = CGSize(width: 250, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let estimatedSize = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18)], context: nil)
+            return CGSize(width: view.frame.width, height: estimatedSize.height + 20)
+        }
+        
+        return CGSize(width: view.frame.width, height: 100)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-    
     func setupTextField() {
-        
-        
-        view.addSubview(container)
-        container.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        container.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        container.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        container.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         container.addSubview(messageTextField)
         messageTextField.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
@@ -106,6 +93,7 @@ class MessageViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     let container: UIView = {
         let container = UIView()
+        container.backgroundColor = .white
         container.translatesAutoresizingMaskIntoConstraints = false
         return container
     }()

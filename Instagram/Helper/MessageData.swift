@@ -59,7 +59,10 @@ extension ChatViewController {
             steve.profileImageName = "steve"
             
             let steveMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
-            steveMessage.text = "apple is the best product in the world"
+            steveMessage.text = """
+            apple is the best product in the world. if you wanna create appliations for apple you should
+            learn swift because it is apple langouge also you should learn it from xcode
+            """
             steveMessage.date = NSDate().addingTimeInterval(-5 * 60)
             steveMessage.friend = steve
             
