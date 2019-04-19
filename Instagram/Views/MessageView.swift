@@ -29,6 +29,7 @@ class MessageCell: BaseCell {
         let message1 = UITextView()
         message1.text = "you are the right person"
         message1.font = UIFont.systemFont(ofSize: 18)
+        message1.isEditable = false
         message1.backgroundColor = .clear
         message1.translatesAutoresizingMaskIntoConstraints = false
         return message1

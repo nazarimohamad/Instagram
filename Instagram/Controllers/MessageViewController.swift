@@ -42,11 +42,37 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
-    @objc func handleShowKeyboard() {
-        
+    @objc func handleShowKeyboard(_ notification: Notification) {
+        if let keyboaradSize: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue? {
+            let keyboardFram = keyboaradSize.cgRectValue
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+//                self.view.frame.origin.y += self.view.safeAreaInsets.bottom
+                self.view.frame.origin.y -= keyboardFram.height
+//                self.view.layoutIfNeeded()
+                
+            }) { (completion) in
+                
+            }
+        }
+    }
+    
+    @objc func handleHideKeyboard(_ notification: Notification) {
+        if let keyboardSize: NSValue = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue {
+            let keyboardFram = keyboardSize.cgRectValue
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                
+                self.view.frame.origin.y += self.view.safeAreaInsets.bottom
+                self.view.frame.origin.y += keyboardFram.height
+                self.view.layoutIfNeeded()
+                
+            }) { (completion) in
+                
+            }
+        }
     }
     
     
