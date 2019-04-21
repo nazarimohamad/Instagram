@@ -2,7 +2,7 @@
 //  Friend+CoreDataProperties.swift
 //  Instagram
 //
-//  Created by Ryan Nazari on 4/17/19.
+//  Created by Ryan Nazari on 4/21/19.
 //  Copyright © 2019 Ryan Nazari. All rights reserved.
 //
 //
@@ -20,6 +20,7 @@ extension Friend {
     @NSManaged public var name: String?
     @NSManaged public var profileImageName: String?
     @NSManaged public var messages: NSSet?
+    @NSManaged public var lastMessage: Message?
 
 }
 

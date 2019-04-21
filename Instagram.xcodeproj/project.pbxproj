@@ -19,7 +19,7 @@
 		1264EA7322671C390093A756 /* Friend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1264EA6F22671C390093A756 /* Friend+CoreDataProperties.swift */; };
 		1264EA7422671C390093A756 /* Message+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1264EA7022671C390093A756 /* Message+CoreDataClass.swift */; };
 		1264EA7522671C390093A756 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1264EA7122671C390093A756 /* Message+CoreDataProperties.swift */; };
-		127EBF0C225CECFA0096FA7D /* MessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EBF0B225CECFA0096FA7D /* MessageData.swift */; };
+		127EBF0C225CECFA0096FA7D /* FetchingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EBF0B225CECFA0096FA7D /* FetchingMessage.swift */; };
 		129682132254A03800A9D098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682122254A03800A9D098 /* AppDelegate.swift */; };
 		129682152254A03800A9D098 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129682142254A03800A9D098 /* HomeController.swift */; };
 		129682182254A03800A9D098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 129682162254A03800A9D098 /* Main.storyboard */; };
@@ -53,7 +53,7 @@
 		1264EA7122671C390093A756 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1264EA77226726450093A756 /* v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v2.xcdatamodel; sourceTree = "<group>"; };
 		1264EA78226726C30093A756 /* v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = v3.xcdatamodel; sourceTree = "<group>"; };
-		127EBF0B225CECFA0096FA7D /* MessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageData.swift; sourceTree = "<group>"; };
+		127EBF0B225CECFA0096FA7D /* FetchingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingMessage.swift; sourceTree = "<group>"; };
 		1296820F2254A03800A9D098 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		129682122254A03800A9D098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		129682142254A03800A9D098 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -92,6 +92,7 @@
 			children = (
 				1247C7162259D536008CC881 /* FetchImagePosts.swift */,
 				12A979A32263188000433D5F /* FetchingUserProfile.swift */,
+				127EBF0B225CECFA0096FA7D /* FetchingMessage.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -100,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				1247C719225A0A69008CC881 /* CustomImageView.swift */,
-				127EBF0B225CECFA0096FA7D /* MessageData.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -348,7 +348,7 @@
 				12ADDB7622573C0C00F95F20 /* ChatListView.swift in Sources */,
 				12D55E65225B9D93003B7570 /* MessageView.swift in Sources */,
 				129682282254AF9700A9D098 /* HomeView.swift in Sources */,
-				127EBF0C225CECFA0096FA7D /* MessageData.swift in Sources */,
+				127EBF0C225CECFA0096FA7D /* FetchingMessage.swift in Sources */,
 				1264EA7422671C390093A756 /* Message+CoreDataClass.swift in Sources */,
 				1264EA7522671C390093A756 /* Message+CoreDataProperties.swift in Sources */,
 				1264EA7322671C390093A756 /* Friend+CoreDataProperties.swift in Sources */,

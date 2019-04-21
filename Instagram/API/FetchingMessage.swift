@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 
-extension ChatViewController {
+class FetchingMessage: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     
     func clearData() {
@@ -38,6 +38,48 @@ extension ChatViewController {
     }
     
     
+//    func loadData() {
+//
+//        let delegate = UIApplication.shared.delegate as? AppDelegate
+//        if let context = delegate?.persistentContainer.viewContext {
+//
+//            if let friends = fetchFriends() {
+//
+//                messages = [Message]()
+//
+//                for friend in friends {
+//
+//                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+//                    fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "date", ascending: false)]
+//                    fetchRequest.predicate = NSPredicate(format: "friend.name = %@", friend.name!)
+//                    fetchRequest.fetchLimit = 1
+//                    do {
+//                        let fetchMessages = try context.fetch(fetchRequest) as? [Message]
+//                        messages?.append(contentsOf: fetchMessages!)
+//                    } catch let err {
+//                        print("there is error to load data\(err)")
+//                    }
+//                }
+//                messages = messages?.sorted(by: {$0.date!.compare($1.date! as Date) == .orderedDescending })
+//            }
+//
+//        }
+//    }
+    
+//    private func fetchFriends() -> [Friend]? {
+//        let delegate = UIApplication.shared.delegate as? AppDelegate
+//        if let context = delegate?.persistentContainer.viewContext {
+//            let fetchFriends = NSFetchRequest<NSFetchRequestResult>(entityName: "Friend")
+//            do {
+//                return try context.fetch(fetchFriends) as? [Friend]
+//            } catch {
+//                print("error\(LocalizedError.self)")
+//            }
+//        }
+//        return nil
+//    }
+
+    
     func setupMessageData() {
         
         clearData()
@@ -53,6 +95,7 @@ extension ChatViewController {
             markMessage.text = "hello this is steve jobs"
             markMessage.date = NSDate().addingTimeInterval(-6 * 60)
             markMessage.friend = mark
+            mark.lastMessage = markMessage
             
             let steve = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
             steve.name = "steve"
@@ -70,6 +113,7 @@ extension ChatViewController {
             steveMessage2.text = "just released swift 5.1"
             steveMessage2.date = NSDate().addingTimeInterval(-1 * 60)
             steveMessage2.friend = steve
+            steve.lastMessage = steveMessage2
             
 //            createCustomMessageForSteve(context: context)
             
@@ -81,6 +125,7 @@ extension ChatViewController {
             harveyMessage.text = "new model is going in the way"
             harveyMessage.date = NSDate().addingTimeInterval(-4 * 60)
             harveyMessage.friend = harvey
+            harvey.lastMessage = harveyMessage
             
             
             do {
@@ -89,7 +134,7 @@ extension ChatViewController {
                 print("error to save data\(LocalizedError.self)")
             }
         }
-        loadData()
+//        loadData()
         
     }
     
@@ -99,6 +144,9 @@ extension ChatViewController {
             message.text = text
             message.date = NSDate().addingTimeInterval(-minAgo * 60)
             message.friend = friend
+            message.isSender = isSender
+        
+            friend.lastMessage = message
         return message
     }
     
@@ -112,48 +160,5 @@ extension ChatViewController {
 //        ChatViewController.createCustomMessage(text: "test 2", minAgo: 0, friend: steve, context: context)
 //    }
     
-    
-    
-    func loadData() {
-        
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        if let context = delegate?.persistentContainer.viewContext {
-           
-            if let friends = fetchFriends() {
-                
-                messages = [Message]()
-                
-                for friend in friends {
-                    
-                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
-                    fetchRequest.sortDescriptors = [NSSortDescriptor.init(key: "date", ascending: false)]
-                    fetchRequest.predicate = NSPredicate(format: "friend.name = %@", friend.name!)
-                    fetchRequest.fetchLimit = 1
-                    do {
-                        let fetchMessages = try context.fetch(fetchRequest) as? [Message]
-                        messages?.append(contentsOf: fetchMessages!)
-                    } catch let err {
-                        print("there is error to load data\(err)")
-                    }
-                }
-                messages = messages?.sorted(by: {$0.date!.compare($1.date! as Date) == .orderedDescending })
-            }
-        
-        }
-    }
-    
-    
-    private func fetchFriends() -> [Friend]? {
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        if let context = delegate?.persistentContainer.viewContext {
-           let fetchFriends = NSFetchRequest<NSFetchRequestResult>(entityName: "Friend")
-            do {
-                return try context.fetch(fetchFriends) as? [Friend]
-            } catch {
-                print("error\(LocalizedError.self)")
-            }
-        }
-        return nil
-    }
     
 }

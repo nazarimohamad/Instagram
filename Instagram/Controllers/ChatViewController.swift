@@ -7,13 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class ChatViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     let cellId = "cellId"
     let headerId = "headerId"
-    
-    var messages: [Message]?
     
     
     override func viewDidLoad() {
@@ -26,9 +25,28 @@ class ChatViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView.register(ChatListCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(SearchBar.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
-        setupMessageData()
+        FetchingMessage().setupMessageData()
+        
+        do {
+            try fetchResualtController.performFetch()
+        } catch {
+            print("error to fetch messages \(LocalizedError.self)")
+        }
        
     }
+    
+    
+    lazy var fetchResualtController: NSFetchedResultsController = { () -> NSFetchedResultsController<Friend> in
+        
+        let fetchRequest = NSFetchRequest<Friend>(entityName: "Friend")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastMessage.date", ascending: false)]
+        fetchRequest.predicate = NSPredicate(format: "lastMessage != nil")
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let context = delegate.persistentContainer.viewContext
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        return frc
+    }()
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize (width: collectionView.frame.width, height: 50)
@@ -40,7 +58,7 @@ class ChatViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count = messages?.count {
+        if let count = fetchResualtController.sections?[section].numberOfObjects {
             return count
         }
         return 0
@@ -48,7 +66,9 @@ class ChatViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatListCell
-        if let message = messages?[indexPath.item] {
+        let friend = fetchResualtController.object(at: indexPath) as Friend
+        let message = friend.lastMessage
+        if let message = message {
             cell.message = message
         }
           return cell
@@ -65,7 +85,8 @@ class ChatViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let layout = UICollectionViewFlowLayout()
         let viewController = MessageViewController(collectionViewLayout: layout)
-        viewController.friend = messages?[indexPath.item].friend
+        let friend = fetchResualtController.object(at: indexPath) as Friend
+        viewController.friend = friend
       navigationController?.pushViewController(viewController, animated: true)
     }
 }

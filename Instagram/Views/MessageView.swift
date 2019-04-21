@@ -13,6 +13,7 @@ class MessageCell: BaseCell {
     
     var message: Message? {
         didSet {
+            
             textMessage.text = message?.text
             
             if let messageText = message?.text {
@@ -56,3 +57,7 @@ class MessageCell: BaseCell {
     
  
 }
+
+
+
+

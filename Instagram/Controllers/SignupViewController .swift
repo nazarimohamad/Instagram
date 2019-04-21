@@ -168,7 +168,7 @@ class SigupViewController: UIViewController {
             
             if error != nil {
                 
-                let alertController = UIAlertController(title: "womethings wronge", message: "there is problem to register", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "somethings wronge", message: "there is problem to register", preferredStyle: .alert)
                 let action = UIAlertAction(title: "ok", style: .cancel, handler: nil)
                 alertController.addAction(action)
                 self.present(alertController, animated: true, completion: nil)
@@ -203,9 +203,6 @@ class SigupViewController: UIViewController {
                     } else {
                         print("error to save user name and photo with url")
                     }
-                    
-
-                    
                 })
             }
         }
