@@ -20,15 +20,23 @@ class MessageCell: BaseCell {
                 let size = CGSize(width: 250, height: 1000)
                 let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
                 let estimatedSize = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18)], context: nil)
-                textMessage.frame = CGRect(x: 15, y: 0, width: estimatedSize.width + 10, height: estimatedSize.height + 20)
-                bubble.frame = CGRect(x: 10, y: 0, width: estimatedSize.width + 15, height: estimatedSize.height + 20)
+                if message?.isSender == false {
+                    textMessage.frame = CGRect(x: 15, y: 0, width: estimatedSize.width + 10, height: estimatedSize.height + 20)
+                    bubble.frame = CGRect(x: 10, y: 0, width: estimatedSize.width + 20, height: estimatedSize.height + 20)
+                } else {
+                    let x = UIScreen.main.bounds.width - estimatedSize.width - 25
+                    textMessage.frame = CGRect(x: x, y: 0, width: estimatedSize.width + 10, height: estimatedSize.height + 20)
+                    bubble.frame = CGRect(x: x - 5 , y: 0, width: estimatedSize.width + 20, height: estimatedSize.height + 20)
+                    textMessage.textColor = .white
+                    bubble.backgroundColor = UIColor(red: 125/255, green: 170/255, blue: 250/255, alpha: 1)
+                }
             }
         }
     }
     
     let textMessage: UITextView = {
         let message1 = UITextView()
-        message1.text = "you are the right person"
+        message1.text = "you are right here"
         message1.font = UIFont.systemFont(ofSize: 18)
         message1.isEditable = false
         message1.backgroundColor = .clear

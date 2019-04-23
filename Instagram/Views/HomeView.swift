@@ -30,6 +30,17 @@ class BaseCell: UICollectionViewCell {
 
 class StoryCell: BaseCell {
     
+    
+    var story: Story? {
+        didSet {
+            storyName.text = story?.storyName
+            if let imageName = story?.storyImageName {
+                storyImage.image = UIImage(named: imageName)
+            }
+        }
+    }
+    
+    
     let storyImage: UIImageView = {
         let storyImg = UIImageView()
         storyImg.layer.cornerRadius = 37
@@ -40,12 +51,13 @@ class StoryCell: BaseCell {
        return storyImg
     }()
     
-    let storyName: UITextField = {
-        let name = UITextField()
+    let storyName: UILabel = {
+        let name = UILabel()
         name.text = "  your story"
         name.textColor = .black
         name.font = UIFont.systemFont(ofSize: 13)
-        name.minimumFontSize = 8
+        name.adjustsFontSizeToFitWidth = true
+        name.minimumScaleFactor = 8
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
     }()
@@ -68,9 +80,7 @@ class StoryCell: BaseCell {
         
         addSubview(storyName)
         storyName.topAnchor.constraint(equalTo: storyImage.bottomAnchor, constant: 4).isActive = true
-        storyName.leftAnchor.constraint(equalTo: storyImage.leftAnchor).isActive = true
-        storyName.rightAnchor.constraint(equalTo: storyImage.rightAnchor).isActive = true
-        storyName.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        storyName.centerXAnchor.constraint(equalTo: storyImage.centerXAnchor).isActive = true
         
         addSubview(dividerLine)
         dividerLine.topAnchor.constraint(equalTo: storyName.bottomAnchor, constant: 8).isActive = true

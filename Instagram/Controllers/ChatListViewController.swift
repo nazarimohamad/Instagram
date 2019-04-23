@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ChatViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class ChatListViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     let cellId = "cellId"
     let headerId = "headerId"

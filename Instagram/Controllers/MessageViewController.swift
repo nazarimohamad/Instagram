@@ -47,7 +47,7 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
         if let keyboaradSize: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue? {
             let keyboardFram = keyboaradSize.cgRectValue
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                self.view.frame.origin.y += self.view.safeAreaInsets.bottom
+                self.view.frame.origin.y -= self.view.safeAreaInsets.bottom
                 self.view.frame.origin.y -= keyboardFram.height
                 self.view.layoutIfNeeded()
                 
@@ -58,16 +58,16 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
     }
     
     @objc func handleHideKeyboard(_ notification: Notification) {
-        if let keyboardSize: NSValue = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue {
-            let keyboardFram = keyboardSize.cgRectValue
+        if let keyboaradSize: NSValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as! NSValue? {
+            let keyboardFram = keyboaradSize.cgRectValue
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                
+
                 self.view.frame.origin.y += self.view.safeAreaInsets.bottom
                 self.view.frame.origin.y += keyboardFram.height
                 self.view.layoutIfNeeded()
-                
+
             }) { (completion) in
-                
+
             }
         }
     }
