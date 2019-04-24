@@ -10,8 +10,8 @@ import UIKit
 
 class HomeController: UICollectionViewController {
     
-    var posts: [Post]?
     
+    var posts: [Post]?
     var story: [Story]?
     
     func setupStory() {
@@ -157,7 +157,15 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == collectionViewOne {
+            let controller = StoryViewController()
+            controller.storyImage = story?[indexPath.item]
+            self.present(controller, animated: true, completion: nil)
+//            let storyImage = StoryImage()
+//            storyImage.showStoryImage()
+            
+        }
+    }
 
-    
 }

@@ -159,7 +159,8 @@ class CardCell: BaseCell {
     
     let likeButton: UIButton = {
         let likeBtn = UIButton()
-        likeBtn.setTitle("likeButton", for: .normal)
+//        likeBtn.currentBackgroundImage = UIImage(named: "heart")
+        likeBtn.backgroundImage(for: .normal)
         likeBtn.backgroundColor = .red
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
         return likeBtn

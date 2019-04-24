@@ -24,13 +24,13 @@ class CustomTabBarController: UITabBarController {
             
             let navController = UINavigationController(rootViewController: viewController())
             navController.tabBarItem.title = "search"
-            navController.tabBarItem.image = UIImage(named: "people")
+            navController.tabBarItem.image = UIImage(named: "heart")
             
             let contactController = UINavigationController(rootViewController: contactViewController())
-            contactController.tabBarItem.title = "contact"
-            contactController.tabBarItem.image = UIImage(named: "people")
+            contactController.tabBarItem.title = "profile"
+            contactController.tabBarItem.image = UIImage(named: "profile")
             
-            viewControllers = [homeController, navController, contactController, createDummyNavControllerWithTitle(title: "Add", imageName: "home" ), createDummyNavControllerWithTitle(title: "Profile", imageName: "setting")]
+            viewControllers = [homeController, navController, contactController, createDummyNavControllerWithTitle(title: "Add", imageName: "add" ), createDummyNavControllerWithTitle(title: "setting", imageName: "setting")]
  
 
     }
