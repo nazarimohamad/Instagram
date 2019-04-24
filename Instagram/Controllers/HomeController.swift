@@ -153,7 +153,7 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: 100, height: 115)
         } else {
             let height = (view.frame.height) - 175
-            return CGSize(width: view.frame.width, height: height)
+            return CGSize(width: view.frame.width, height: 485)
         }
     }
     

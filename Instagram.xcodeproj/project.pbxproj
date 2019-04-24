@@ -91,14 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1247C7152259D508008CC881 /* API */ = {
+		1247C7152259D508008CC881 /* API Services */ = {
 			isa = PBXGroup;
 			children = (
 				1247C7162259D536008CC881 /* FetchImagePosts.swift */,
 				12A979A32263188000433D5F /* FetchingUserProfile.swift */,
 				127EBF0B225CECFA0096FA7D /* FetchingMessage.swift */,
 			);
-			path = API;
+			path = "API Services";
 			sourceTree = "<group>";
 		};
 		1247C718225A0A4C008CC881 /* Helper */ = {
@@ -168,7 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				129682122254A03800A9D098 /* AppDelegate.swift */,
-				1247C7152259D508008CC881 /* API */,
+				1247C7152259D508008CC881 /* API Services */,
 				12C6EF7F2258A390005C2E1D /* Model */,
 				124A9B9F2256217500CB1A84 /* Views */,
 				124A9BA02256218400CB1A84 /* Controllers */,

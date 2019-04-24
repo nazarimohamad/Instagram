@@ -22,8 +22,6 @@ class StoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        (UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow)?.isHidden = true
-        
         view.backgroundColor = .white
         
         view.addSubview(imageView)

@@ -18,28 +18,29 @@ class CustomTabBarController: UITabBarController {
             let layout = UICollectionViewFlowLayout()
             let hController = HomeController(collectionViewLayout: layout)
             let homeController = UINavigationController.init(rootViewController: hController)
-            homeController.tabBarItem.title = "Home"
             homeController.tabBarItem.image = UIImage(named: "home")
+            homeController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             
             
             let navController = UINavigationController(rootViewController: viewController())
-            navController.tabBarItem.title = "search"
-            navController.tabBarItem.image = UIImage(named: "heart")
+            navController.tabBarItem.image = UIImage(named: "search")
+            navController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             
             let contactController = UINavigationController(rootViewController: contactViewController())
-            contactController.tabBarItem.title = "profile"
-            contactController.tabBarItem.image = UIImage(named: "profile")
+            contactController.tabBarItem.image = UIImage(named: "add")
+            contactController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        
             
-            viewControllers = [homeController, navController, contactController, createDummyNavControllerWithTitle(title: "Add", imageName: "add" ), createDummyNavControllerWithTitle(title: "setting", imageName: "setting")]
+        viewControllers = [homeController, navController, contactController, createDummyNavControllerWithTitle(imageName: "bigHeart" ), createDummyNavControllerWithTitle(imageName: "setting")]
  
 
     }
     
-    private func createDummyNavControllerWithTitle(title: String, imageName: String) -> UINavigationController {
+    private func createDummyNavControllerWithTitle(imageName: String) -> UINavigationController {
         let viewController = UIViewController()
         let navController = UINavigationController(rootViewController: viewController)
-        navController.tabBarItem.title = title
         navController.tabBarItem.image = UIImage(named: imageName)
+        navController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         return navController
     }
 }
