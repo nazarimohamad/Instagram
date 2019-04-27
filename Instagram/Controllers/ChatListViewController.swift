@@ -87,6 +87,6 @@ class ChatListViewController: UICollectionViewController, UICollectionViewDelega
         let viewController = MessageViewController(collectionViewLayout: layout)
         let friend = fetchResualtController.object(at: indexPath) as Friend
         viewController.friend = friend
-      navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

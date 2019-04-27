@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import JTMaterialTransition
 
 class HomeController: UICollectionViewController {
+    
+    var transition = JTMaterialTransition()
     
     
     var posts: [Post]?
@@ -17,35 +20,32 @@ class HomeController: UICollectionViewController {
     func setupStory() {
         
         let steve = Story()
-        steve.storyName = "steve"
+        steve.storyName = "steve jobs"
         steve.storyImageName = "steve"
         
         let elon = Story()
-        elon.storyName = "elon"
-        elon.storyImageName = "elon"
+        elon.storyName = "selena gomez"
+        elon.storyImageName = "selen"
         
         let mark = Story()
         mark.storyName = "mark"
         mark.storyImageName = "mark"
         
         let elon1 = Story()
-        elon1.storyName = "elon"
+        elon1.storyName = "elon musk"
         elon1.storyImageName = "elon"
         
         let elon2 = Story()
-        elon2.storyName = "elon"
-        elon2.storyImageName = "elon"
+        elon2.storyName = "taylor"
+        elon2.storyImageName = "taylor"
         
         let elon3 = Story()
-        elon3.storyName = "elon"
-        elon3.storyImageName = "elon"
+        elon3.storyName = "susan"
+        elon3.storyImageName = "susan"
         
         story = [steve, elon, mark, elon1, elon2, elon3]
     }
    
-    
-    
-    
     let storyCell = "storyCell"
     lazy var collectionViewOne: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -81,8 +81,29 @@ class HomeController: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.navigationItem.title = "home"
-        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "message", style: .plain, target: self, action: #selector(showChatScreen))
+        if let image = UIImage(named: "bigMessage")?.withRenderingMode(.alwaysOriginal) {
+            
+            let button = UIButton()
+            button.setImage(image, for: .normal)
+            button.addTarget(self, action: #selector(showChatScreen), for: .touchUpInside)
+            button.imageEdgeInsets = UIEdgeInsets(top: -50, left: -50, bottom: -50, right: -50)
+            
+            let menuBarItem = UIBarButtonItem(customView: button)
+            menuBarItem.customView?.translatesAutoresizingMaskIntoConstraints = false
+            menuBarItem.customView?.heightAnchor.constraint(equalToConstant: 24).isActive = true
+            menuBarItem.customView?.widthAnchor.constraint(equalToConstant: 24).isActive = true
+
+            
+            tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        }
     }
+    
+    @objc func showChatScreen() {
+        let layout = UICollectionViewFlowLayout()
+        let chatViewController = ChatListViewController.init(collectionViewLayout: layout)
+        self.tabBarController?.navigationController?.pushViewController(chatViewController, animated: true)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,22 +114,16 @@ class HomeController: UICollectionViewController {
         
         collectionViewOne.delegate = self
         collectionViewOne.dataSource = self
-
+        
         collectionViewTwo.delegate = self
         collectionViewTwo.dataSource = self
-
+        
         collectionViewOne.register(StoryCell.self, forCellWithReuseIdentifier: storyCell)
         collectionViewTwo.register(CardCell.self, forCellWithReuseIdentifier: cardCell)
-
-
+        
+        
         collectionView.addSubview(collectionViewOne)
         collectionView.addSubview(collectionViewTwo)
-    }
-
-    @objc func showChatScreen() {
-        let layout = UICollectionViewFlowLayout()
-        let chatViewController = ChatListViewController.init(collectionViewLayout: layout)
-        self.tabBarController?.navigationController?.pushViewController(chatViewController, animated: true)
     }
     
 }
@@ -139,7 +154,7 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
             
         } else if collectionView == self.collectionViewTwo {
             let cCell = collectionViewTwo.dequeueReusableCell(withReuseIdentifier: cardCell, for: indexPath as IndexPath) as! CardCell
-            cCell.post = posts?[indexPath.item]
+            cCell.post = posts?[indexPath.item]     
             return cCell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
@@ -147,13 +162,16 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
         }
         
     }
+    @objc func likeBtnPressed() {
+        NotificationCenter.default.post(name: Notification.Name("changeLikeBtnColor"), object: nil)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == collectionViewOne {
             return CGSize(width: 100, height: 115)
         } else {
-            let height = (view.frame.height) - 175
-            return CGSize(width: view.frame.width, height: 485)
+//            let height = (view.frame.height) - 175
+            return CGSize(width: view.frame.width, height: 500)
         }
     }
     
@@ -161,10 +179,9 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
         if collectionView == collectionViewOne {
             let controller = StoryViewController()
             controller.storyImage = story?[indexPath.item]
+//            controller.modalPresentationStyle = .custom
+//            controller.transitioningDelegate = self.transition
             self.present(controller, animated: true, completion: nil)
-//            let storyImage = StoryImage()
-//            storyImage.showStoryImage()
-            
         }
     }
 

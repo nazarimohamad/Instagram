@@ -104,7 +104,6 @@ class CardCell: BaseCell {
             numberOfLike.text = "\(formatter.string(from: (post?.numberOfLikes)!) ?? "21") likes"
            
             profileName.text =  post?.profile?.profileName
-         
         }
     }
     
@@ -157,27 +156,36 @@ class CardCell: BaseCell {
         return img
     }()
     
+    
     let likeButton: UIButton = {
         let likeBtn = UIButton()
-//        likeBtn.currentBackgroundImage = UIImage(named: "heart")
-        likeBtn.backgroundImage(for: .normal)
-        likeBtn.backgroundColor = .red
+        if let image = UIImage(named: "smallHeart"){
+            likeBtn.setImage(image, for: .normal)
+            likeBtn.imageView?.contentMode = .scaleAspectFill
+            likeBtn.imageEdgeInsets = UIEdgeInsets(top:-60, left: -60, bottom: -60, right: -60)
+        }
         likeBtn.translatesAutoresizingMaskIntoConstraints = false
         return likeBtn
     }()
-    
+
     let commentButton: UIButton = {
         let commentBtn = UIButton()
-        commentBtn.setTitle("commentButton", for: .normal)
-        commentBtn.backgroundColor = .green
+        if let image = UIImage(named: "smallComment") {
+            commentBtn.setImage(image, for: .normal)
+            commentBtn.imageView?.contentMode = .scaleAspectFill
+        }
+        commentBtn.imageEdgeInsets = UIEdgeInsets(top: -60, left: -60, bottom: -60, right: -60)
         commentBtn.translatesAutoresizingMaskIntoConstraints = false
         return commentBtn
     }()
     
     let shareButton: UIButton = {
         let shareBtn = UIButton()
-        shareBtn.setTitle("shareButton", for: .normal)
-        shareBtn.backgroundColor = .blue
+        if let image = UIImage(named: "smallMessage") {
+            shareBtn.setImage(image, for: .normal)
+            shareBtn.imageView?.contentMode = .scaleAspectFill
+            shareBtn.imageEdgeInsets = UIEdgeInsets(top: -60, left: -60, bottom: -60, right: -60)
+        }
         shareBtn.translatesAutoresizingMaskIntoConstraints = false
         return shareBtn
     }()
@@ -225,16 +233,19 @@ class CardCell: BaseCell {
         likeButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 4).isActive = true
         likeButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
         likeButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        likeButton.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
         addSubview(commentButton)
         commentButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 4).isActive = true
         commentButton.leftAnchor.constraint(equalTo: likeButton.rightAnchor, constant: 4).isActive = true
         commentButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        commentButton.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
         addSubview(shareButton)
         shareButton.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 4).isActive = true
         shareButton.leftAnchor.constraint(equalTo: commentButton.rightAnchor, constant: 4).isActive = true
         shareButton.widthAnchor.constraint(equalToConstant: 42).isActive = true
+        shareButton.heightAnchor.constraint(equalToConstant: 42).isActive = true
         
         addSubview(numberOfLike)
         numberOfLike.topAnchor.constraint(equalTo: likeButton.bottomAnchor, constant: 4).isActive = true

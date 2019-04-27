@@ -14,10 +14,10 @@ class FetchingMessage: UICollectionViewController, UICollectionViewDelegateFlowL
     
     
     func clearData() {
-        
+
         let delegate = UIApplication.shared.delegate as? AppDelegate
         if let context = delegate?.persistentContainer.viewContext {
-           
+
             do {
                 let entityName = ["Friend", "Message"]
                 for entityName in entityName {
@@ -28,13 +28,13 @@ class FetchingMessage: UICollectionViewController, UICollectionViewDelegateFlowL
                     }
                 }
                 try context.save()
-                
+
             } catch {
                 print("error to clear data \(LocalizedError.self)")
             }
-            
+
         }
-        
+
     }
     
     
@@ -89,7 +89,7 @@ class FetchingMessage: UICollectionViewController, UICollectionViewDelegateFlowL
             
             let mark = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
             mark.name = "mark zuckerberg"
-            mark.profileImageName = "steve"
+            mark.profileImageName = "mark"
             
             let markMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             markMessage.text = "hello this is steve jobs"
@@ -104,22 +104,23 @@ class FetchingMessage: UICollectionViewController, UICollectionViewDelegateFlowL
             let steveMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             steveMessage.text = """
             apple is the best product in the world. if you wanna create appliations for apple you should
-            learn swift because it is apple langouge also you should learn it from xcode
+            learn swift and xcode
             """
             steveMessage.date = NSDate().addingTimeInterval(-5 * 60)
             steveMessage.friend = steve
+            steve.lastMessage = steveMessage
             
             let steveMessage2 = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             steveMessage2.text = "just released swift 5.1"
-            steveMessage2.date = NSDate().addingTimeInterval(-1 * 60)
+            steveMessage2.date = NSDate().addingTimeInterval(-3 * 60)
             steveMessage2.friend = steve
             steve.lastMessage = steveMessage2
             
 //            createCustomMessageForSteve(context: context)
             
             let harvey = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-            harvey.name = "harvey spector"
-            harvey.profileImageName = "steve"
+            harvey.name = "Bill gates"
+            harvey.profileImageName = "bil"
             
             let harveyMessage = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             harveyMessage.text = "new model is going in the way"
@@ -138,7 +139,7 @@ class FetchingMessage: UICollectionViewController, UICollectionViewDelegateFlowL
         
     }
     
-    static func createCustomMessage(text: String, minAgo: Double, friend: Friend, context: NSManagedObjectContext, isSender: Bool = false) -> Message {
+    @discardableResult static func createCustomMessage(text: String, minAgo: Double, friend: Friend, context: NSManagedObjectContext, isSender: Bool = false) -> Message {
             
             let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
             message.text = text

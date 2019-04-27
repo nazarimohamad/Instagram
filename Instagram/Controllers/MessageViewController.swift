@@ -10,16 +10,39 @@ import UIKit
 import CoreData
 
 
-class MessageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, NSFetchedResultsControllerDelegate{
+class MessageViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
     
     var friend: Friend?
     
     let cellId = "cellId"
     
+    var bottomConstrant: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = .white
+        
         navigationItem.title = friend?.name
+        view.backgroundColor = .white
+        collectionView.backgroundColor = .white
+        
+        
+        let gauid  = view.safeAreaLayoutGuide
+        let height = (view.frame.height) - (view.safeAreaInsets.bottom + 60)
+        collectionView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: height)
+        
+        collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
+        
+        setupTextField()
+        
+        view.addSubview(container)
+        NSLayoutConstraint(item: container, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: container, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: container, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50).isActive = true
+        bottomConstrant = NSLayoutConstraint(item: container, attribute: .bottom, relatedBy: .equal, toItem: gauid, attribute: .bottom, multiplier: 1, constant: 0)
+        view.addConstraint(bottomConstrant!)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         do {
             try fetchResaultController.performFetch()
@@ -27,52 +50,37 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
             print("error to catch message \(LocalizedError.self)")
         }
         
-        collectionView.register(MessageCell.self, forCellWithReuseIdentifier: cellId)
-        
-        setupTextField()
-        
-        let gauid  = view.safeAreaLayoutGuide
-        view.addSubview(container)
-        container.bottomAnchor.constraint(equalTo: gauid.bottomAnchor).isActive = true
-        container.leadingAnchor.constraint(equalTo: gauid.leadingAnchor).isActive = true
-        container.rightAnchor.constraint(equalTo: gauid.rightAnchor).isActive = true
-        container.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
     
-    @objc func handleShowKeyboard(_ notification: Notification) {
+    //MARK: Handle Keyboard
+    @objc func handleKeyboard(_ notification: Notification) {
         if let keyboaradSize: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue? {
             let keyboardFram = keyboaradSize.cgRectValue
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                self.view.frame.origin.y -= self.view.safeAreaInsets.bottom
-                self.view.frame.origin.y -= keyboardFram.height
+                
+                let height = -(keyboardFram.height - self.view.safeAreaInsets.bottom)
+                self.bottomConstrant?.constant = height
+                let isKeyboardShowing = notification.name == UIResponder.keyboardWillShowNotification
+                self.bottomConstrant?.constant = isKeyboardShowing ? height : 0
                 self.view.layoutIfNeeded()
                 
             }) { (completion) in
                 
+                let item = (self.fetchResaultController.sections?[0].numberOfObjects)! - 1
+                let lastIndex = IndexPath(item: item, section: 0) as IndexPath
+                self.collectionView.scrollToItem(at: lastIndex, at: .bottom, animated: true)
             }
+        } else {
+            bottomConstrant?.constant = 0
         }
     }
     
-    @objc func handleHideKeyboard(_ notification: Notification) {
-        if let keyboaradSize: NSValue = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as! NSValue? {
-            let keyboardFram = keyboaradSize.cgRectValue
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-
-                self.view.frame.origin.y += self.view.safeAreaInsets.bottom
-                self.view.frame.origin.y += keyboardFram.height
-                self.view.layoutIfNeeded()
-
-            }) { (completion) in
-
-            }
-        }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        messageTextField.endEditing(true)
     }
     
     
+    //MARK: Fetch Messages
     lazy var fetchResaultController: NSFetchedResultsController = { () -> NSFetchedResultsController<Message> in
         let fetchRequest = NSFetchRequest<Message>(entityName: "Message")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
@@ -106,38 +114,7 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
         }
     }
     
-    
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let count = fetchResaultController.sections?[0].numberOfObjects {
-            return count
-        }
-        return 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MessageCell
-        let message = fetchResaultController.object(at: indexPath) as Message
-        cell.message = message
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let message = fetchResaultController.object(at: indexPath) as Message
-        if let messageText = message.text {
-            let size = CGSize(width: 250, height: 1000)
-            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-            let estimatedSize = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18)], context: nil)
-            return CGSize(width: view.frame.width, height: estimatedSize.height + 20)
-        }
-        
-        return CGSize(width: view.frame.width, height: 100)
-    }
-    
-    
-    
-    
+    //MARK: Setup textField
     func setupTextField() {
         
         container.addSubview(messageTextField)
@@ -151,6 +128,12 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
         sendButton.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
         sendButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        container.addSubview(dividerLine)
+        dividerLine.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+        dividerLine.widthAnchor.constraint(equalTo: container.widthAnchor).isActive = true
+        dividerLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        
     }
     
     
@@ -181,6 +164,13 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
         return send
     }()
     
+    let dividerLine: UIView = {
+        let line = UIView()
+        line.backgroundColor = UIColor(white: 0.5, alpha: 0.8)
+        line.translatesAutoresizingMaskIntoConstraints = false
+        return line
+    }()
+    
     
     @objc func handleSendButton() {
         guard let messageText = messageTextField.text else {return}
@@ -199,3 +189,34 @@ class MessageViewController: UICollectionViewController, UICollectionViewDelegat
     
 }
 
+
+//MARK: extension-collection view
+extension MessageViewController:  UICollectionViewDelegateFlowLayout {
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let count = fetchResaultController.sections?[0].numberOfObjects {
+            return count
+        }
+        return 0
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MessageCell
+        let message = fetchResaultController.object(at: indexPath) as Message
+        cell.message = message
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let message = fetchResaultController.object(at: indexPath) as Message
+        if let messageText = message.text {
+            let size = CGSize(width: 250, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let estimatedSize = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18)], context: nil)
+            return CGSize(width: view.frame.width, height: estimatedSize.height + 20)
+        }
+        
+        return CGSize(width: view.frame.width, height: 100)
+    }
+}

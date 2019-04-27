@@ -74,7 +74,7 @@ class StoryViewController: UIViewController {
         imageView.image = UIImage(named: "")
         imageView.backgroundColor = .blue
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
